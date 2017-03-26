@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.control.MainController">
+    <children>
+        <AnchorPane maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="38.0" prefWidth="796.0" styleClass="vd-title" VBox.vgrow="ALWAYS">
+            <children>
+                <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="604.0" text="%app.title" />
+                <AnchorPane layoutX="900.0" layoutY="5.0" AnchorPane.rightAnchor="5.0">
+                    <children>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="30.0" onMouseClicked="#handleMaximizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/maximizeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="60.0" onMouseClicked="#handleCloseWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/closeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" onMouseClicked="#handleMinimizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/minimizeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <MenuBar maxWidth="1.7976931348623157E308" prefHeight="30.0" prefWidth="800.0">
+            <menus>
+                <Menu text="%app.menu.file">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleCloseWinBtnClick" text="%app.menu.file.close" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%app.menu.view">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%app.menu.view.window" />
+                        <Menu mnemonicParsing="false" text="%app.menu.view.skin">
+                            <items>
+                                <MenuItem mnemonicParsing="false" onAction="#setSkinAction" text="caspian" />
+                                <MenuItem mnemonicParsing="false" onAction="#setSkinAction" text="modena" />
+                            </items>
+                        </Menu>
+                        <MenuItem mnemonicParsing="false" onAction="#setFullScreanAction" text="%app.menu.view.fullscreen" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="%app.menu.help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="%app.menu.help.about" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+        <ToolBar maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+            <items>
+                <Button mnemonicParsing="false" text="New">
+                    <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </items>
+        </ToolBar>
+        <AnchorPane fx:id="mainContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="800.0">
+         <children>
+            <TilePane prefHeight="510.0" prefWidth="998.0">
+               <children>
+                  <VBox style="-fx-alignment: center;">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#handleAddressBookBtnClick" styleClass="app-fun-icon-btn" stylesheets="@skin/CASPIAN/vd.css">
+                           <graphic>
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                 </image>
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label onMouseClicked="#handleAddressBookBtnClick" text="%app.addressBookfun">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
+                     </children>
+                     <TilePane.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </TilePane.margin>
+                  </VBox>
+                  <VBox layoutX="20.0" layoutY="20.0" style="-fx-alignment: center;">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="app-fun-icon-btn" stylesheets="@skin/CASPIAN/vd.css">
+                           <graphic>
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label text="报文管理">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
+                     </children>
+                     <TilePane.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </TilePane.margin>
+                  </VBox>
+                  <VBox layoutX="110.0" layoutY="20.0" style="-fx-alignment: center;">
+                     <children>
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="app-fun-icon-btn" stylesheets="@skin/CASPIAN/vd.css">
+                           <graphic>
+                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Label text="DB密码密文生成">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor></Label>
+                     </children>
+                     <TilePane.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </TilePane.margin>
+                  </VBox>
+               </children>
+            </TilePane>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin></AnchorPane>
+    </children>
+</VBox>

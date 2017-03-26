@@ -1,0 +1,20 @@
+/**
+ * 公共样式
+*/
+.table-view,.table-view:focused {
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+}
+.button:focused {
+    -fx-color: -fx-focused-base;
+    /*去掉蓝色边框*/
+    -fx-background-color: transparent, -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: -1.4, 0, 1, 2;
+    -fx-background-radius:  6.4, 5, 4, 3;
+}
+.table-view .table-row-cell {
+    -fx-background-insets: 0;
+}
+.table-row-cell:empty .table-cell {
+    -fx-border-width: 0px;
+}

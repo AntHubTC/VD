@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.media.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.control.AddressBookController">
+    <children>
+        <AnchorPane maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="30.0" prefWidth="998.0" styleClass="vd-title">
+            <children>
+                <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="604.0" text="%app.addressBookfun" />
+                <AnchorPane layoutX="900.0" layoutY="5.0" AnchorPane.rightAnchor="5.0">
+                    <children>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="30.0" onMouseClicked="#handleMaximizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/maximizeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="60.0" onMouseClicked="#handleCloseWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/closeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                        <ImageView fitHeight="22.0" fitWidth="22.0" onMouseClicked="#handleMinimizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/minimizeWinBtn.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+        <ToolBar maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+            <items>
+                <Button mnemonicParsing="false" onMouseClicked="#handleNewBtnClick" text="New">
+                    <graphic>
+                        <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="save">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            </items>
+        </ToolBar>
+        <AnchorPane fx:id="mainContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="addressBookView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="528.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <columns>
+                    <TableColumn id="nameColumn" fx:id="nameColumn" prefWidth="90.0" text="地址名称" />
+                    <TableColumn id="protocolColumn" fx:id="protocolColumn" prefWidth="75.0" text="协议" />
+                    <TableColumn id="ipColumn" fx:id="ipColumn" prefWidth="90.0" text="ip" />
+                    <TableColumn id="portColumn" fx:id="portColumn" prefWidth="75.0" text="端口" />
+                    <TableColumn id="sendBeginColumn" fx:id="sendBeginColumn" prefWidth="85.0" text="发送开始位置" />
+                    <TableColumn id="sendLenEndColumn" fx:id="sendLenEndColumn" prefWidth="85.0" text="发送结束位置" />
+                    <TableColumn id="recvLenBeginColumn" fx:id="recvLenBeginColumn" prefWidth="85.0" text="接收开始位置" />
+                    <TableColumn id="recvLenEndColumn" fx:id="recvLenEndColumn" prefWidth="85.0" text="接收结束位置" />
+                    <TableColumn id="timeOutColumn" fx:id="timeOutColumn" prefWidth="75.0" text="超时时间" />
+                    <TableColumn id="encodingColumn" fx:id="encodingColumn" prefWidth="75.0" text="编码" />
+                    <TableColumn id="bufferSizeColumn" fx:id="bufferSizeColumn" prefWidth="75.0" text="缓冲大小" />
+                    <TableColumn id="commentColumn" fx:id="commentColumn" prefWidth="95.0" text="备注" />
+                </columns>
+            </TableView>
+         </children></AnchorPane>
+    </children>
+</VBox>

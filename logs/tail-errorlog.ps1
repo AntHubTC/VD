@@ -1,0 +1,1 @@
+get-content .\error.log -ReadCount 0 -Tail 5 -Wait
