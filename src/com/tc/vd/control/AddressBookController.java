@@ -105,6 +105,8 @@ public class AddressBookController extends WindowController implements Initializ
             @Override
             public TableCell<ContactGoalConfig, String> call(TableColumn<ContactGoalConfig, String> param) {
                 ComboBoxTableCell comboBoxTableCell = new ComboBoxTableCell();
+                ObservableList items = comboBoxTableCell.getItems();
+                items.add("tcp");
                 comboBoxTableCell.setEditable(true);
                 return comboBoxTableCell;
             }
