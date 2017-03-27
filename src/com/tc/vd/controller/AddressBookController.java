@@ -321,6 +321,12 @@ public class AddressBookController extends WindowController implements Initializ
         ContactGoalConfig contactGoalConfig = new ContactGoalConfig("","","",8080);
         addressBookList.add(contactGoalConfig);
 
+        //获取最后一行
+        int endRowIndex = addressBookView.getItems().size() - 1;
+        //获取最后一列
+        TableColumn<ContactGoalConfig, ?> LastTableColumn = addressBookView.getColumns().get(0);
+        //开始编辑最新一行的第一个单元格
+        addressBookView.edit(endRowIndex, LastTableColumn);
         if(LOG.isDebugEnabled()){
             LOG.debug("新增一条编辑项");
         }
@@ -333,8 +339,17 @@ public class AddressBookController extends WindowController implements Initializ
     @FXML
     public void handleDelBtnClick(MouseEvent event){
         TableView.TableViewSelectionModel<ContactGoalConfig> selectionModel = addressBookView.getSelectionModel();
+        ContactGoalConfig selectedItem = selectionModel.getSelectedItem();
+        if(null == selectedItem){
+            //弹出提示框
+            MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
+            monologFX.setTitleText("提示");
+            monologFX.setMessage("请选择要删除的地址项!~");
+//            monologFX.setDisplayTime(2);
+
+            monologFX.show();
+        }
         if(SelectionMode.SINGLE.equals(selectionModel.getSelectionMode())){//如果是单行删除
-            ContactGoalConfig selectedItem = selectionModel.getSelectedItem();
             addressBookList.remove(selectedItem);
 
             if(LOG.isDebugEnabled()){
@@ -355,10 +370,11 @@ public class AddressBookController extends WindowController implements Initializ
         }
         instance.persistData();//持久化地址簿数据
 
+        //弹出提示框，提示保存成功
         MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
         monologFX.setTitleText("提示");
-        monologFX.setMessage("新增成功!~");
-        monologFX.setDisplayTime(5);
+        monologFX.setMessage("保存成功!~");
+        monologFX.setDisplayTime(2);
 
         monologFX.show();
     }
