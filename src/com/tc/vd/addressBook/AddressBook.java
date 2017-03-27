@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.HierarchicalINIConfiguration;
+import org.apache.commons.configuration.SubnodeConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,8 +39,26 @@ public class AddressBook {
      */
     public void loadData(){
         addressBookList.clear();
-        addressBookList.add(new ContactGoalConfig("地址簿测试1","http","127.0.0.1",8081));
-        addressBookList.add(new ContactGoalConfig("地址簿测试2","http","127.0.0.2",8081));
+        try {
+            File resFile = FileResUtil.getResFile(ResConstant.rootPath, ResConstant.addressBook);
+            HierarchicalINIConfiguration context = new HierarchicalINIConfiguration();
+            context.load(resFile);
+            //转换数据
+            for (String sectionName : context.getSections()){
+                SubnodeConfiguration section = context.getSection(sectionName);
+                ContactGoalConfig contactGoalConfig = ContactGoalConfig.create(section);
+
+                addressBookList.add(contactGoalConfig);
+            }
+        } catch (ConfigurationException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        测试数据
+//        addressBookList.add(new ContactGoalConfig("地址簿测试1","http","127.0.0.1",8081));
+//        addressBookList.add(new ContactGoalConfig("地址簿测试2","http","127.0.0.2",8081));
     }
 
     /**

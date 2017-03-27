@@ -5,11 +5,13 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import org.apache.commons.configuration.HierarchicalINIConfiguration;
+import org.apache.commons.configuration.SubnodeConfiguration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Properties;
 
 /**
  * 通讯目标配置
@@ -252,5 +254,38 @@ public class ContactGoalConfig {
 		context.addProperty(prefix + "comment", this.getComment());
 
 		return this;
+	}
+
+	/**
+	 * 通过配置文件转换得到该对象
+	 * @param section
+	 * @return
+	 */
+	public static ContactGoalConfig create(SubnodeConfiguration section) {
+		String _name = section.getString("name");
+		String _protocol = section.getString("protocol");
+		String _ip = section.getString("ip");
+		Integer _port = section.getInt("port");
+		Integer _sendLenBegin = section.getInt("sendLenBegin");
+		Integer _sendLenEnd = section.getInt("sendLenEnd");
+		Integer _recvLenBegin = section.getInt("recvLenBegin");
+		Integer _recvLenEnd = section.getInt("recvLenEnd");
+		Integer _timeOut = section.getInt("timeOut");
+		String _encoding = section.getString("encoding");
+		Integer _bufferSize = section.getInt("bufferSize");
+		String _comment = section.getString("comment");
+
+		ContactGoalConfig contactGoalConfig = new ContactGoalConfig(_name, _protocol, _ip, _port);
+
+		contactGoalConfig.setSendLenBegin(_sendLenBegin);
+		contactGoalConfig.setSendLenEnd(_sendLenEnd);
+		contactGoalConfig.setRecvLenBegin(_recvLenBegin);
+		contactGoalConfig.setRecvLenEnd(_recvLenEnd);
+		contactGoalConfig.setTimeOut(_timeOut);
+		contactGoalConfig.setEncoding(_encoding);
+		contactGoalConfig.setBufferSize(_bufferSize);
+		contactGoalConfig.setComment(_comment);
+
+		return contactGoalConfig;
 	}
 }
