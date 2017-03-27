@@ -1,11 +1,10 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 import com.tc.vd.utils.FileResUtil;
 import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**

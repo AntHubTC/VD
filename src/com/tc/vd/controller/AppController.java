@@ -1,4 +1,4 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

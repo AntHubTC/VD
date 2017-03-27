@@ -1,4 +1,4 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 /**
  * Created by tangcheng on 2017/3/7.

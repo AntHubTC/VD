@@ -1,14 +1,11 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 import com.tc.vd.utils.FileResUtil;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -18,7 +15,6 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URL;
-import java.util.ResourceBundle;
 
 /**
  * 主窗口控制器
@@ -39,7 +35,7 @@ public class MainController extends WindowController{
         Scene primaryStageScene = getPrimaryStageScene();
         //加载公共样式
         ObservableList<String> stylesheets = primaryStageScene.getStylesheets();
-        String commonCssPath = System.getProperty("res.css.path") + System.getProperty("ui.skin");
+        String commonCssPath = System.getProperty("res.css.skin.path");
         URL commonCssUrl = null;
         try {
             commonCssUrl = FileResUtil.getResUrl(commonCssPath + File.separator + "common.css");

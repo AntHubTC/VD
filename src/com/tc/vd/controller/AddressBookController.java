@@ -1,9 +1,12 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 import com.tc.vd.VdApplication;
 import com.tc.vd.addressBook.AddressBook;
 import com.tc.vd.addressBook.ContactGoalConfig;
-import javafx.collections.FXCollections;
+import com.tc.vd.ui.control.monologfx.MonologFX;
+import com.tc.vd.ui.control.monologfx.MonologFXBuilder;
+import com.tc.vd.ui.control.monologfx.MonologFXButton;
+import com.tc.vd.ui.control.monologfx.MonologFXButtonBuilder;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,13 +15,11 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
-import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import org.apache.log4j.Logger;
@@ -353,5 +354,12 @@ public class AddressBookController extends WindowController implements Initializ
             LOG.debug("处理地址簿持久化");
         }
         instance.persistData();//持久化地址簿数据
+
+        MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
+        monologFX.setTitleText("提示");
+        monologFX.setMessage("新增成功!~");
+        monologFX.setDisplayTime(5);
+
+        monologFX.show();
     }
 }

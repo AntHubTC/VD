@@ -3,12 +3,11 @@ package com.tc.vd;
 import com.tc.vd.config.ResConstant;
 import com.tc.vd.config.SysConfig;
 import com.tc.vd.config.UserConfig;
-import com.tc.vd.control.ControlledStage;
-import com.tc.vd.control.MainController;
-import com.tc.vd.control.StageController;
-import com.tc.vd.control.StageEnums;
+import com.tc.vd.controller.ControlledStage;
+import com.tc.vd.controller.MainController;
+import com.tc.vd.controller.StageController;
+import com.tc.vd.controller.StageEnums;
 import com.tc.vd.event.WindowsCloseEvent;
-import com.tc.vd.utils.FileResUtil;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -84,7 +83,7 @@ public class VdApplication extends Application {
         mainController.init();//调用初始化方法
 
         //设置主要舞台其他属性
-        String icon = System.getProperty("res.css.path") + System.getProperty("ui.skin")  + File.separator + "images/helpDoc.png";
+        String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
         File iconFile = new File(icon);
         Image iconImg = new Image(new FileInputStream(iconFile));
         primaryStage.getIcons().add(iconImg);//这里可以设置标题图标也可以设置任务栏图标
@@ -237,7 +236,7 @@ public class VdApplication extends Application {
 
         try {
             SystemTray tray = SystemTray.getSystemTray();
-            String icon = System.getProperty("res.css.path") + System.getProperty("ui.skin")  + File.separator + "images/helpDoc.png";
+            String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
             File iconFile = new File(icon);
             String appTitle = System.getProperty("app.title");
             trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(iconFile.getAbsolutePath()), appTitle, popupMenu);

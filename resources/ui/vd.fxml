@@ -11,7 +11,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.control.MainController">
+<VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.controller.MainController">
     <children>
         <AnchorPane maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="38.0" prefWidth="796.0" styleClass="vd-title" VBox.vgrow="ALWAYS">
             <children>

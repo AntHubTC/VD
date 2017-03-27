@@ -1,6 +1,5 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
-import com.tc.vd.config.ResConstant;
 import com.tc.vd.utils.FileResUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -98,8 +97,8 @@ public class StageController {
             //----------------加载css样式----------
             ObservableList<String> stylesheets = tempScene.getStylesheets();
             //加载公共样式
-            String commonCssPath = System.getProperty("res.css.path") + System.getProperty("ui.skin");
-            URL commonCssUrl = FileResUtil.getResUrl(commonCssPath + File.separator + "common.css");
+            URL commonCssUrl = FileResUtil.getResUrl(
+                    System.getProperty("res.css.skin.path") + File.separator + "common.css");
             stylesheets.add(commonCssUrl.toExternalForm());
             //加载每个窗体私有样式
             URL cssResUrl = stageEnum.getCssResourceUrl();

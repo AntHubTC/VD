@@ -28,6 +28,9 @@ public class SysConfig {
         if(null != skin && !"".equals(skin)){
             System.setProperty("javafx.userAgentStylesheetUrl", skin);
         }
+
+        //处理环境变量
+        System.setProperty("res.css.skin.path", System.getProperty("res.css.path") + System.getProperty("ui.skin"));
     }
 
     private static void parsePropertyFile(File propertiesFile) {

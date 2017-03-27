@@ -1,4 +1,4 @@
-package com.tc.vd.control;
+package com.tc.vd.controller;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
