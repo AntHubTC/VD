@@ -15,6 +15,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import javafx.util.StringConverter;
+import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 
 import java.net.URL;
@@ -65,7 +67,7 @@ public class AddressBookController extends WindowController implements Initializ
         Callback callbackRtnTFTCStr = new Callback<TableColumn<ContactGoalConfig, String>, TableCell<ContactGoalConfig, String>>() {
             @Override
             public TableCell<ContactGoalConfig, String> call(TableColumn<ContactGoalConfig, String> param) {
-                TextFieldTableCell textFieldTableCell = new TextFieldTableCell();
+                TextFieldTableCell textFieldTableCell = new TextFieldTableCell(new DefaultStringConverter());
                 textFieldTableCell.setEditable(true);
                 textFieldTableCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
@@ -84,7 +86,7 @@ public class AddressBookController extends WindowController implements Initializ
                 textFieldTableCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        //textFieldTableCell.startEdit();
+                        textFieldTableCell.startEdit();
                     }
                 });
                 return textFieldTableCell;
