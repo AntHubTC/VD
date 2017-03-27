@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import org.apache.commons.configuration.HierarchicalINIConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -228,5 +229,28 @@ public class ContactGoalConfig {
 				", bufferSize=" + bufferSize +
 				", comment=" + comment +
 				'}';
+	}
+
+	/**
+	 * 将数据加入到context中
+	 * @param context
+	 * @param section
+	 */
+	public ContactGoalConfig appendTo(HierarchicalINIConfiguration context, String section) {
+		String prefix = section + "." ;
+		context.addProperty(prefix + "name", this.getName());
+		context.addProperty(prefix + "protocol", this.getProtocol());
+		context.addProperty(prefix + "ip", this.getIp());
+		context.addProperty(prefix + "port", this.getPort());
+		context.addProperty(prefix + "sendLenBegin", this.getSendLenBegin());
+		context.addProperty(prefix + "sendLenEnd", this.getSendLenEnd());
+		context.addProperty(prefix + "recvLenBegin", this.getRecvLenBegin());
+		context.addProperty(prefix + "recvLenEnd", this.getRecvLenEnd());
+		context.addProperty(prefix + "timeOut", this.getTimeOut());
+		context.addProperty(prefix + "encoding", this.getEncoding());
+		context.addProperty(prefix + "bufferSize", this.getBufferSize());
+		context.addProperty(prefix + "comment", this.getComment());
+
+		return this;
 	}
 }

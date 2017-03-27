@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
 import java.awt.*;
@@ -40,7 +41,7 @@ public class VdApplication extends Application {
 //        }
     }
     private StageController stageController = StageController.getInstance();
-    //private static Logger LOG = Logger.getLogger(VdApplication.class);
+    private static Logger LOG = Logger.getLogger(VdApplication.class);
 
     /**
      * VD APP启动
@@ -57,7 +58,7 @@ public class VdApplication extends Application {
         stageController.setPrimaryStage(primaryStage);
 
         //加载用户偏好设置
-        //LOG.debug("加载用户偏好设置");
+        LOG.debug("加载用户偏好设置");
         UserConfig ucIns = UserConfig.getInstance();
         String useTimes = ucIns.getProperty("sys", "useTimes");
         if(null == useTimes || "".equals(useTimes) || (!useTimes.matches("\\d"))){

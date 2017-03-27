@@ -57,7 +57,16 @@
                         </ImageView>
                     </graphic>
                 </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="save">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleDelBtnClick" text="delete">
+               <graphic>
+                  <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="79.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleSaveBtnClick" text="save">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>

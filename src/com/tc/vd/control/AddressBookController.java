@@ -1,11 +1,14 @@
 package com.tc.vd.control;
 
+import com.tc.vd.VdApplication;
+import com.tc.vd.addressBook.AddressBook;
 import com.tc.vd.addressBook.ContactGoalConfig;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -18,6 +21,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 import javafx.util.converter.DefaultStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import org.apache.log4j.Logger;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,8 +30,10 @@ import java.util.ResourceBundle;
  * Created by tangcheng on 2017/3/26.
  */
 public class AddressBookController extends WindowController implements Initializable {
-    //地址簿数据列表
-    public ObservableList<ContactGoalConfig> addressBookList = FXCollections.observableArrayList();
+    private static Logger LOG = Logger.getLogger(VdApplication.class);
+    //地址簿数据
+    private ObservableList<ContactGoalConfig> addressBookList;
+
     @FXML
     public TableView<ContactGoalConfig> addressBookView;//地址簿管理界面
     @FXML
@@ -60,8 +66,12 @@ public class AddressBookController extends WindowController implements Initializ
      * @param location
      * @param resources
      */
+//    static Integer num = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        if(num == 1) return;
+//        num++;
+//        LOG.info("运行次数:" + num);
         super.initialize(location, resources);
 
         Callback callbackRtnTFTCStr = new Callback<TableColumn<ContactGoalConfig, String>, TableCell<ContactGoalConfig, String>>() {
@@ -69,12 +79,11 @@ public class AddressBookController extends WindowController implements Initializ
             public TableCell<ContactGoalConfig, String> call(TableColumn<ContactGoalConfig, String> param) {
                 TextFieldTableCell textFieldTableCell = new TextFieldTableCell(new DefaultStringConverter());
                 textFieldTableCell.setEditable(true);
-                textFieldTableCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        //textFieldTableCell.startEdit();
-                    }
-                });
+//                textFieldTableCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//                    @Override
+//                    public void handle(MouseEvent event) {
+//                    }
+//                });
                 return textFieldTableCell;
             }
         };
@@ -156,8 +165,146 @@ public class AddressBookController extends WindowController implements Initializ
         this.bufferSizeColumn.setSortable(false);
         this.commentColumn.setSortable(false);
 
-        addressBookList.add(new ContactGoalConfig("地址簿测试1","http","127.0.0.1",8081));
-        addressBookList.add(new ContactGoalConfig("地址簿测试2","http","127.0.0.2",8081));
+        this.nameColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setName(newValue);
+            }
+        });
+        this.protocolColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setProtocol(newValue);
+            }
+        });
+        this.ipColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setIp(newValue);
+            }
+        });
+        this.portColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setName(newValue);
+            }
+        });
+        this.sendBeginColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setSendLenBegin(newValue);
+            }
+        });
+        this.sendLenEndColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setSendLenEnd(newValue);
+            }
+        });
+        this.recvLenBeginColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setRecvLenBegin(newValue);
+            }
+        });
+        this.recvLenEndColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setRecvLenEnd(newValue);
+            }
+        });
+        this.timeOutColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setTimeOut(newValue);
+            }
+        });
+        this.encodingColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setEncoding(newValue);
+            }
+        });
+        this.bufferSizeColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setBufferSize(newValue);
+            }
+        });
+        this.commentColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
+                String newValue = event.getNewValue();
+                ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
+                int row = event.getTablePosition().getRow();
+                ContactGoalConfig contactGoalConfig = items.get(row);
+
+                contactGoalConfig.setComment(newValue);
+            }
+        });
+
+        //初始化基础数据
+        LOG.info("初始化地址簿");
+        AddressBook instance = AddressBook.getInstance();
+        LOG.info("正在加载地址簿数据开始");
+        instance.loadData();
+        LOG.info("正在加载地址簿数据完成");
+        addressBookList = instance.getAddressBookList();
 
         this.addressBookView.setItems(addressBookList);
     }
@@ -168,8 +315,41 @@ public class AddressBookController extends WindowController implements Initializ
      */
     @FXML
     public void handleNewBtnClick(MouseEvent event){
+        ContactGoalConfig contactGoalConfig = new ContactGoalConfig("","","",8080);
+        addressBookList.add(contactGoalConfig);
 
+        if(LOG.isDebugEnabled()){
+            LOG.debug("新增一条编辑项");
+        }
     }
 
+    /**
+     * 处理删除按钮单击事件
+     * @param event
+     */
+    @FXML
+    public void handleDelBtnClick(MouseEvent event){
+        TableView.TableViewSelectionModel<ContactGoalConfig> selectionModel = addressBookView.getSelectionModel();
+        if(SelectionMode.SINGLE.equals(selectionModel.getSelectionMode())){//如果是单行删除
+            ContactGoalConfig selectedItem = selectionModel.getSelectedItem();
+            addressBookList.remove(selectedItem);
 
+            if(LOG.isDebugEnabled()){
+                LOG.debug("处理地址簿删除数据，删除地址信息：" + selectedItem);
+            }
+        }
+    }
+
+    /**
+     * 处理保存按钮单击事件
+     * @param event
+     */
+    @FXML
+    public void handleSaveBtnClick(MouseEvent event){
+        AddressBook instance = AddressBook.getInstance();
+        if(LOG.isDebugEnabled()){
+            LOG.debug("处理地址簿持久化");
+        }
+        instance.persistData();//持久化地址簿数据
+    }
 }
