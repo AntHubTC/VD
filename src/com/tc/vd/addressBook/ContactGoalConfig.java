@@ -63,6 +63,7 @@ public class ContactGoalConfig {
 	public void setRecvLenBegin(int recvLenBegin) {
 		if(null == this.recvLenBegin){
 			this.recvLenBegin = new SimpleIntegerProperty(8);
+			return;
 		}
 		this.recvLenBegin.set(recvLenBegin);
 	}
@@ -74,6 +75,7 @@ public class ContactGoalConfig {
 	public void setSendLenBegin(int sendLenBegin) {
 		if(null == this.sendLenBegin){
 			this.sendLenBegin = new SimpleIntegerProperty(8);
+			return;
 		}
 		this.sendLenBegin.set(sendLenBegin);
 	}
@@ -85,6 +87,7 @@ public class ContactGoalConfig {
 	public void setRecvLenEnd(int recvLenEnd) {
 		if(null == this.recvLenEnd){
 			this.recvLenEnd = new SimpleIntegerProperty(8);
+			return;
 		}
 		this.recvLenEnd.set(recvLenEnd);
 	}
@@ -96,6 +99,7 @@ public class ContactGoalConfig {
 	public void setSendLenEnd(int sendLenEnd) {
 		if(null == this.sendLenEnd){
 			this.sendLenEnd = new SimpleIntegerProperty(8);
+			return;
 		}
 		this.sendLenEnd.set(sendLenEnd);
 	}
@@ -107,6 +111,7 @@ public class ContactGoalConfig {
 	public void setTimeOut(int timeOut) {
 		if(null == this.timeOut){
 			this.timeOut = new SimpleIntegerProperty(60);
+			return;
 		}
 		this.timeOut.set(timeOut);
 	}
@@ -118,6 +123,7 @@ public class ContactGoalConfig {
 	public void setEncoding(String encoding) {
 		if(null == this.encoding){
 			this.encoding = new SimpleStringProperty("utf8");
+			return;
 		}
 		this.encoding.set(encoding);
 	}
@@ -129,6 +135,7 @@ public class ContactGoalConfig {
 	public void setBufferSize(int bufferSize) {
 		if(null == this.bufferSize){
 			this.bufferSize = new SimpleIntegerProperty(1000);
+			return;
 		}
 		this.bufferSize.set(bufferSize);
 	}
@@ -140,6 +147,7 @@ public class ContactGoalConfig {
 	public void setName(String name) {
 		if(null == this.name){
 			this.name = new SimpleStringProperty("");
+			return;
 		}
 		this.name.set(name);
 	}
@@ -163,6 +171,7 @@ public class ContactGoalConfig {
 	public void setComment(String comment) {
 		if(null == this.comment){
 			this.comment = new SimpleStringProperty("");
+			return;
 		}
 		this.comment.set(comment);
 	}
@@ -174,6 +183,7 @@ public class ContactGoalConfig {
 	public void setProtocol(String protocol) {
 		if(null == this.protocol){
 			this.protocol = new SimpleStringProperty("http");
+			return;
 		}
 		this.protocol.set(protocol);
 	}
@@ -185,6 +195,7 @@ public class ContactGoalConfig {
 	public void setIp(String ip) {
 		if(null == this.ip){
 			this.ip = new SimpleStringProperty("127.0.0.1");
+			return;
 		}
 		this.ip.set(ip);
 	}
@@ -196,7 +207,26 @@ public class ContactGoalConfig {
 	public void setPort(Integer port) {
 		if(null == this.port){
 			this.port = new SimpleIntegerProperty(9001);
+			return;
 		}
 		this.port.set(port);
+	}
+
+	@Override
+	public String toString() {
+		return "ContactGoalConfig{" +
+				"name=" + name +
+				", protocol=" + protocol +
+				", ip=" + ip +
+				", port=" + port +
+				", sendLenBegin=" + sendLenBegin +
+				", sendLenEnd=" + sendLenEnd +
+				", recvLenBegin=" + recvLenBegin +
+				", recvLenEnd=" + recvLenEnd +
+				", timeOut=" + timeOut +
+				", encoding=" + encoding +
+				", bufferSize=" + bufferSize +
+				", comment=" + comment +
+				'}';
 	}
 }
