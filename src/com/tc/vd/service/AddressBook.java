@@ -27,7 +27,7 @@ public class AddressBook {
      * 获取实例
      * @return
      */
-    public static AddressBook getInstance(){
+    public static synchronized AddressBook getInstance(){
         if(null == addressBook){
             addressBook = new AddressBook();
         }

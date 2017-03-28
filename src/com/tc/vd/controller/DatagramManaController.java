@@ -1,6 +1,8 @@
 package com.tc.vd.controller;
 
 import com.tc.vd.VdApplication;
+import com.tc.vd.model.Datagram;
+import com.tc.vd.service.DatagramMana;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -30,13 +32,24 @@ public class DatagramManaController extends WindowController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TreeItem<String> root = new TreeItem<String>("Root Node");
-        root.setExpanded(true);
-        root.getChildren().addAll(
-                new TreeItem<String>("Item 1"),
-                new TreeItem<String>("Item 2"),
-                new TreeItem<String>("Item 3")
-        );
-        treeView.setRoot(root);
+//        TreeItem<String> root = new TreeItem<String>("Root Node");
+//        root.setExpanded(true);
+//        root.getChildren().addAll(
+//                new TreeItem<String>("Item 1"),
+//                new TreeItem<String>("Item 2"),
+//                new TreeItem<String>("Item 3")
+//        );
+        try {
+            //获取报文管理实例
+            DatagramMana instance = DatagramMana.getInstance();
+            //载入数据
+            instance.loadData();
+            //获取树结构数据
+            TreeItem<Datagram> dataTree = instance.getData();
+            //显示到树中
+            treeView.setRoot(dataTree);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

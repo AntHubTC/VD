@@ -18,4 +18,8 @@ public class ResConstant {
     public static final String userConf = "data" + File.separator + "userConfig.ini";
     //地址簿
     public static final String addressBook = "data" + File.separator + "address.ini";
+    //报文存放目录
+    public static final String datagramPath = "data" + File.separator + "datagram";
+
+
 }
