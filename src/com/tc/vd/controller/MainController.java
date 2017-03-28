@@ -89,4 +89,17 @@ public class MainController extends WindowController{
         stageController.setStage(StageEnums.ADDRESS_BOOK_STAGE);
         super.handleOpenWinAction(event);
     }
+
+
+    /**
+     * 处理地址簿单击事件
+     * @param event
+     */
+    @FXML
+    public void handleDgManaBtnClick(MouseEvent event){
+        StageController stageController = getStageController();
+        stageController.loadStage(StageEnums.DATAGRAM_MANA_STAGE, new StageStyle[]{ StageStyle.UNDECORATED });
+        stageController.setStage(StageEnums.DATAGRAM_MANA_STAGE);
+        super.handleOpenWinAction(event);
+    }
 }

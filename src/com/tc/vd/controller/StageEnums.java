@@ -12,7 +12,8 @@ import java.net.URL;
  */
 public enum StageEnums {
     PRIMARY_STAGE(System.getProperty("res.ui.main"), System.getProperty("res.css.main")),
-    ADDRESS_BOOK_STAGE(System.getProperty("res.ui.addressbook"), System.getProperty("res.css.addressbook"))
+    ADDRESS_BOOK_STAGE(System.getProperty("res.ui.addressbook"), System.getProperty("res.css.addressbook")),
+    DATAGRAM_MANA_STAGE(System.getProperty("res.ui.datagramMana"), System.getProperty("res.css.datagramMana"))
     ;
     private String uiResource;
     private String styleSheet;
