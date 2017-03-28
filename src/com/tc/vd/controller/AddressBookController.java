@@ -1,12 +1,9 @@
 package com.tc.vd.controller;
 
 import com.tc.vd.VdApplication;
-import com.tc.vd.addressBook.AddressBook;
-import com.tc.vd.addressBook.ContactGoalConfig;
+import com.tc.vd.model.addressBook.AddressBook;
+import com.tc.vd.model.addressBook.ContactGoalConfig;
 import com.tc.vd.ui.control.monologfx.MonologFX;
-import com.tc.vd.ui.control.monologfx.MonologFXBuilder;
-import com.tc.vd.ui.control.monologfx.MonologFXButton;
-import com.tc.vd.ui.control.monologfx.MonologFXButtonBuilder;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

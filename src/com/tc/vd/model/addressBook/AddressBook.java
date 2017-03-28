@@ -1,4 +1,4 @@
-package com.tc.vd.addressBook;
+package com.tc.vd.model.addressBook;
 
 import com.tc.vd.config.ResConstant;
 import com.tc.vd.utils.FileResUtil;
@@ -10,7 +10,6 @@ import org.apache.commons.configuration.SubnodeConfiguration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.List;
 
 /**
  * 地址簿

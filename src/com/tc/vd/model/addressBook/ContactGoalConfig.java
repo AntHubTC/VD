@@ -1,4 +1,4 @@
-package com.tc.vd.addressBook;
+package com.tc.vd.model.addressBook;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -7,11 +7,8 @@ import javafx.beans.property.StringProperty;
 import org.apache.commons.configuration.HierarchicalINIConfiguration;
 import org.apache.commons.configuration.SubnodeConfiguration;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Properties;
 
 /**
  * 通讯目标配置

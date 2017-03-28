@@ -1,7 +1,7 @@
 package com.tc.vd.net;
 
 
-import com.tc.vd.addressBook.MsgContent;
+import com.tc.vd.model.addressBook.MsgContent;
 
 public interface IPContact extends IContact{
 	

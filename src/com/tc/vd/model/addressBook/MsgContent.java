@@ -1,4 +1,4 @@
-package com.tc.vd.addressBook;
+package com.tc.vd.model.addressBook;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
