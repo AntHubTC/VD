@@ -2,8 +2,8 @@ package com.tc.vd.net;
 
 import java.io.UnsupportedEncodingException;
 
-import com.tc.vd.model.addressBook.ContactGoalConfig;
-import com.tc.vd.model.addressBook.MsgContent;
+import com.tc.vd.model.ContactGoalConfig;
+import com.tc.vd.model.MsgContent;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 

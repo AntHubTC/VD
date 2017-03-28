@@ -1,6 +1,7 @@
-package com.tc.vd.model.addressBook;
+package com.tc.vd.service;
 
 import com.tc.vd.config.ResConstant;
+import com.tc.vd.model.ContactGoalConfig;
 import com.tc.vd.utils.FileResUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

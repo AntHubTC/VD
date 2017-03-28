@@ -1,4 +1,4 @@
-package com.tc.vd.model.addressBook;
+package com.tc.vd.model;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;

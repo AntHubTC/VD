@@ -9,7 +9,7 @@ import java.net.URI;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-import com.tc.vd.model.addressBook.ContactGoalConfig;
+import com.tc.vd.model.ContactGoalConfig;
 import org.apache.log4j.Logger;
 
 
