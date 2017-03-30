@@ -2,9 +2,12 @@ package com.tc.vd.ui.control.monologfx;
 
 import com.tc.vd.controller.StageController;
 import com.tc.vd.utils.FileResUtil;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +18,6 @@ import java.util.*;
  * @author Mark Heckler (mark.heckler@gmail.com, @MkHeck)
  */
 public class MonologFXButton {
-
     /**
      * Type of button, with several built-in options and three custom ones. 
      */
@@ -28,6 +30,9 @@ public class MonologFXButton {
     private Node icon;
     private boolean defaultButton = false;
     private boolean cancelButton = false;
+
+    //按钮单击处理
+    private EventHandler<ActionEvent> actionEventHandler;
 
     /**
      * Default constructor for a MonologFX button. Plain button,
@@ -171,5 +176,21 @@ public class MonologFXButton {
      */
     public void setCancelButton(boolean cancelButton) {
         this.cancelButton = cancelButton;
+    }
+
+    /**
+     * 设置按钮单击处理
+     * @param eventHandler
+     */
+    public final void setOnActionHanlder(
+            EventHandler<ActionEvent> eventHandler){
+        this.actionEventHandler = eventHandler;
+    }
+
+    /**
+     * 获取设置按钮单击处理
+     */
+    public EventHandler<ActionEvent> getOnActionHandler(){
+        return this.actionEventHandler;
     }
 }

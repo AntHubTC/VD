@@ -17,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
@@ -58,7 +59,7 @@ public class MonologFX {
     private Stage stage;
     private final BorderPane pane = new BorderPane();
     private final ImageView icon = new ImageView();
-    private final Label message = new Label();
+    private Node childNode; //子节点
     private final HBox buttonBox = new HBox(10);
     private final List<MonologFXButton> buttons = new ArrayList<>();
     private int buttonCancel = -1;
@@ -67,6 +68,9 @@ public class MonologFX {
     private float displayTime = 0f;
     private float fadeInOutTime;
     private final List<String> stylesheets = new ArrayList<>();
+
+    private EventHandler<ActionEvent> okEventHandler;//确定处理
+    private EventHandler<ActionEvent> noEventHandler;//取消处理
 
     /**
      * Default constructor for a MonologFX dialog box. Creates an INFO box.
@@ -88,17 +92,39 @@ public class MonologFX {
         initDialog(t);
     }
 
-    private void addOKButton() {
+    public void setOkEventHandler(EventHandler<ActionEvent> okEventHandler){
+        this.okEventHandler = okEventHandler;
+    }
+
+    public void setNoEventHandler(EventHandler<ActionEvent> noEventHandler){
+        this.noEventHandler = noEventHandler;
+    }
+
+    /**
+     * 添加确定按钮
+     * @return
+     */
+    public void addOKButton() {
         MonologFXButton okBtn = new MonologFXButton();
         okBtn.setType(MonologFXButton.Type.OK);
         okBtn.setLabel("_OK");
         okBtn.setCancelButton(true);
         okBtn.setDefaultButton(true);
 
+        //设置单击”确定“按钮处理
+        if(null != this.okEventHandler){
+            okBtn.setOnActionHanlder(this.okEventHandler);
+        }
+
         addButton(okBtn);
     }
 
-    private void addYesNoButtons() {
+    /**
+     * 添加确认取消按钮
+     * @return
+     */
+    public void addYesNoButtons() {
+        Button[] btns = new Button[2];
         /*
          * No default or cancel buttons designated, by design.
          * Some cases would require the Yes button to be default & No to cancel,
@@ -112,6 +138,11 @@ public class MonologFX {
         yesBtn.setCancelButton(false);
         yesBtn.setDefaultButton(false);
 
+        //设置单击”确定“按钮处理
+        if(null != this.okEventHandler){
+            yesBtn.setOnActionHanlder(this.okEventHandler);
+        }
+
         addButton(yesBtn);
 
         MonologFXButton noBtn = new MonologFXButton();
@@ -119,6 +150,11 @@ public class MonologFX {
         noBtn.setLabel("_No");
         noBtn.setCancelButton(false);
         noBtn.setDefaultButton(false);
+
+        //设置单击”取消“按钮处理
+        if(null != this.noEventHandler){
+            noBtn.setOnActionHanlder(this.noEventHandler);
+        }
 
         addButton(noBtn);
     }
@@ -148,6 +184,11 @@ public class MonologFX {
             buttonCancel = buttons.size() - 1;
         }
 
+        btn.setDisable(false);
+        if(null != btnToAdd.getOnActionHandler()){ //鼠标单击处理
+            btn.setOnAction(btnToAdd.getOnActionHandler());
+        }
+
         if (btn.isDefaultButton()) {
             Platform.runLater(new Runnable() {
                 @Override
@@ -157,6 +198,7 @@ public class MonologFX {
             });
         }
 
+        EventHandler<ActionEvent> actionHandler = btnToAdd.getOnActionHandler();
         btn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent evt) {
@@ -167,6 +209,8 @@ public class MonologFX {
                         break;
                     }
                 }
+
+                actionHandler.handle(evt);
 
                 // Close the dialog
                 ((Stage) ((Node) evt.getSource()).getScene().getWindow()).close();
@@ -247,8 +291,18 @@ public class MonologFX {
      * @param msg String variable containing the text to display.
      */
     public void setMessage(String msg) {
+        final Label message = new Label();
         message.setText(msg);
         message.setWrapText(true);
+        this.childNode = message;
+    }
+
+    /**
+     * 设置显示的内容
+     * @param node
+     */
+    public void setCenterContent(Node node){
+        this.childNode = node;
     }
 
     /**
@@ -351,9 +405,9 @@ public class MonologFX {
         BorderPane.setMargin(icon, new Insets(5));
         pane.setLeft(icon);
 
-        BorderPane.setAlignment(message, Pos.CENTER);
-        BorderPane.setMargin(message, new Insets(5));
-        pane.setCenter(message);
+        BorderPane.setAlignment(childNode, Pos.CENTER);
+        BorderPane.setMargin(childNode, new Insets(5));
+        pane.setCenter(childNode);
 
         switch (buttonAlignment) {
             case LEFT:
