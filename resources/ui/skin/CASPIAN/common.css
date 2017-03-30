@@ -12,9 +12,27 @@
     -fx-background-insets: -1.4, 0, 1, 2;
     -fx-background-radius:  6.4, 5, 4, 3;
 }
+
 .table-view .table-row-cell {
     -fx-background-insets: 0;
 }
 .table-row-cell:empty .table-cell {
     -fx-border-width: 0px;
+}
+
+.tree-cell .tree-disclosure-node .arrow {
+    -fx-scale-shape: false;
+    -fx-background-color: transparent;
+    -fx-shape: "M 0 4 L 0 -4 L 5 0 z";
+    -fx-border-color: grey;
+    -fx-border-width: 0.083333em;
+}
+
+.tree-cell:expanded .tree-disclosure-node .arrow {
+    -fx-scale-shape: false;
+
+    -fx-background-color: -fx-mark-color;
+    -fx-rotate: 0;
+    -fx-shape: "M 0 3 L 6 -3 L 6 3 z";
+    -fx-border-width: 0.083333em;
 }

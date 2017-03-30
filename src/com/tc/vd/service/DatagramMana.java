@@ -99,10 +99,54 @@ public class DatagramMana {
         }
     }
 
+    /**
+     * 获取载入的数据
+     * @return
+     * @throws Exception
+     */
     public TreeItem<Datagram> getData() throws Exception {
         if (null == rootTreeItem){
             throw new Exception("请先载入数据！~");
         }
         return rootTreeItem;
+    }
+
+    /**
+     * 删除报文
+     * @param datagramTreeItem
+     */
+    public void delete(TreeItem<Datagram> datagramTreeItem) {
+        ObservableList<TreeItem<Datagram>> children = datagramTreeItem.getChildren();
+        //删除子节点
+        for (TreeItem<Datagram> child : children) {
+            //删除子节点和目录
+            delete(child);
+        }
+        //删除当前节点
+        Datagram datagram = datagramTreeItem.getValue();
+        delete(datagram);
+    }
+
+    /**
+     * 删除报文
+     * @param datagram
+     */
+    private void delete(Datagram datagram) {
+        String fileName = datagram.getFileName();
+        String path = datagram.getPath();
+        if("datagram".equals(fileName)){ //不删除根目录
+            return;
+        }
+        File file = new File(path);
+        if(file.exists()){
+            boolean runResult = file.delete();
+            if(runResult){
+                LOG.info("删除报文文件:" + path + "结果：成功");
+            } else {
+                LOG.info("删除报文文件:" + path + "结果：失败");
+            }
+        } else {
+            LOG.info("删除报文文件:" + path + "结果：文件未找到，删除失败");
+        }
     }
 }
