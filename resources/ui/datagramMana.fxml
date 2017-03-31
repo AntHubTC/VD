@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -9,17 +13,9 @@
     <children>
         <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="30.0" prefWidth="998.0" styleClass="vd-title" VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="604.0" text="%app.addressBookfun" />
+                <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="604.0" text="%app.datagramManafun" />
                 <AnchorPane layoutX="900.0" layoutY="5.0" AnchorPane.rightAnchor="5.0">
                     <children>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="30.0" onMouseClicked="#handleMaximizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@skin/CASPIAN/images/maximizeWinBtn.png" />
-                            </image>
-                            <cursor>
-                                <Cursor fx:constant="HAND" />
-                            </cursor>
-                        </ImageView>
                         <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="60.0" onMouseClicked="#handleCloseWinBtnClick" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@skin/CASPIAN/images/closeWinBtn.png" />
@@ -28,7 +24,7 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </ImageView>
-                        <ImageView fitHeight="22.0" fitWidth="22.0" onMouseClicked="#handleMinimizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="30.0" onMouseClicked="#handleMinimizeWinBtnClick" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@skin/CASPIAN/images/minimizeWinBtn.png" />
                             </image>
@@ -54,7 +50,67 @@
                         </ToolBar>
                         <TreeView fx:id="treeView" editable="true" layoutY="31.0" minHeight="0.0" minWidth="0.0" prefHeight="535.0" prefWidth="180.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="31.0" />
                      </children></AnchorPane>
-                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                     <children>
+                        <BorderPane prefHeight="566.0" prefWidth="810.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <top>
+                              <TabPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="260.0" prefWidth="800.0" side="BOTTOM" style="-fx-border-style: solid; -fx-border-color: #6f6f6f;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                                <tabs>
+                                  <Tab text="XML">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea layoutX="-17.0" layoutY="-34.0" prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                    </content>
+                                  </Tab>
+                                  <Tab text="template">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <TextArea prefHeight="200.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                    </content>
+                                  </Tab>
+                                </tabs>
+                                 <BorderPane.margin>
+                                    <Insets left="5.0" right="5.0" top="5.0" />
+                                 </BorderPane.margin>
+                              </TabPane>
+                           </top>
+                           <center>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="10.0" prefWidth="810.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <Label alignment="CENTER" prefHeight="23.0" prefWidth="42.0" text="地址：" />
+                                    <ComboBox prefWidth="150.0" />
+                                    <Label alignment="CENTER" layoutX="15.0" layoutY="15.0" prefHeight="23.0" prefWidth="68.0" text="发送次数：">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField prefHeight="23.0" prefWidth="66.0" />
+                                    <Button mnemonicParsing="false" text="send">
+                                       <HBox.margin>
+                                          <Insets left="10.0" right="10.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                                 <padding>
+                                    <Insets left="5.0" right="5.0" top="5.0" />
+                                 </padding>
+                              </HBox>
+                           </center>
+                           <bottom>
+                              <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="293.0" prefWidth="810.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff00" height="260.0" layoutX="5.0" layoutY="5.0" stroke="#6f6f6f" strokeType="INSIDE" width="800.0" />
+                                    <Label alignment="CENTER" layoutX="35.0" layoutY="-2.0" prefHeight="15.0" prefWidth="72.0" style="-fx-background-color: white;" text="数据接收" textAlignment="CENTER" />
+                                    <TextArea editable="false" layoutX="10.0" layoutY="15.0" prefHeight="244.0" prefWidth="789.0" />
+                                 </children>
+                              </Pane>
+                           </bottom>
+                        </BorderPane>
+                     </children></AnchorPane>
               </items>
             </SplitPane>
          </children></AnchorPane>
