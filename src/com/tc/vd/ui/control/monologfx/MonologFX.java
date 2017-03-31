@@ -239,7 +239,7 @@ public class MonologFX {
 
     private void initDialog(Type t) {
         stage = new Stage();
-        stage.initStyle(StageStyle.UTILITY);
+        stage.initStyle(StageStyle.DECORATED);
 
         setType(t);
         stage.initModality(Modality.APPLICATION_MODAL);

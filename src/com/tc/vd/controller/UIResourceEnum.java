@@ -10,19 +10,20 @@ import java.net.URL;
 /**
  * Created by tangcheng on 2017/3/7.
  */
-public enum StageEnums {
+public enum UIResourceEnum {
     PRIMARY_STAGE(System.getProperty("res.ui.main"), System.getProperty("res.css.main")),
     ADDRESS_BOOK_STAGE(System.getProperty("res.ui.addressbook"), System.getProperty("res.css.addressbook")),
-    DATAGRAM_MANA_STAGE(System.getProperty("res.ui.datagramMana"), System.getProperty("res.css.datagramMana"))
+    DATAGRAM_MANA_STAGE(System.getProperty("res.ui.datagramMana"), System.getProperty("res.css.datagramMana")),
+    DATAGRAM_ADD(System.getProperty("res.ui.datagramAdd"), System.getProperty("res.css.datagramAdd")),
     ;
     private String uiResource;
     private String styleSheet;
     private StageStyle styles[];
 
-    StageEnums(String uiResource, StageStyle... styles) {
+    UIResourceEnum(String uiResource, StageStyle... styles) {
         this(uiResource, "", styles);
     }
-    StageEnums(String uiResource,String styleSheet, StageStyle... styles) {
+    UIResourceEnum(String uiResource, String styleSheet, StageStyle... styles) {
         this.uiResource = System.getProperty("res.ui.path") + uiResource;
         this.styleSheet = System.getProperty("res.css.path") +
                 System.getProperty("ui.skin")  + File.separator + styleSheet;

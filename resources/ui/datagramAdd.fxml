@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.controller.DatagramAddController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="32.0" prefWidth="36.0" text="名称：">
+               <HBox.margin>
+                  <Insets right="3.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="nameTxt" prefHeight="23.0" prefWidth="139.0" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="36.0" text="类型：">
+               <HBox.margin>
+                  <Insets right="3.0" />
+               </HBox.margin>
+            </Label>
+            <ComboBox fx:id="typesCombo" prefHeight="23.0" prefWidth="139.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>

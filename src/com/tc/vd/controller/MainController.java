@@ -44,7 +44,7 @@ public class MainController extends WindowController{
         }
         stylesheets.add(commonCssUrl.toExternalForm());
         //加载私有样式
-        String cssUrlStr = StageEnums.PRIMARY_STAGE.getCssResourceUrl().toExternalForm();
+        String cssUrlStr = UIResourceEnum.PRIMARY_STAGE.getCssResourceUrl().toExternalForm();
         primaryStageScene.getStylesheets().add(cssUrlStr);
 
         //设置窗口标题
@@ -85,8 +85,8 @@ public class MainController extends WindowController{
     @FXML
     public void handleAddressBookBtnClick(MouseEvent event){
         StageController stageController = getStageController();
-        stageController.loadStage(StageEnums.ADDRESS_BOOK_STAGE, new StageStyle[]{ StageStyle.UNDECORATED });
-        stageController.setStage(StageEnums.ADDRESS_BOOK_STAGE);
+        stageController.loadStage(UIResourceEnum.ADDRESS_BOOK_STAGE, new StageStyle[]{ StageStyle.UNDECORATED });
+        stageController.setStage(UIResourceEnum.ADDRESS_BOOK_STAGE);
         super.handleOpenWinAction(event);
     }
 
@@ -98,8 +98,8 @@ public class MainController extends WindowController{
     @FXML
     public void handleDgManaBtnClick(MouseEvent event){
         StageController stageController = getStageController();
-        stageController.loadStage(StageEnums.DATAGRAM_MANA_STAGE, new StageStyle[]{ StageStyle.UNDECORATED });
-        stageController.setStage(StageEnums.DATAGRAM_MANA_STAGE);
+        stageController.loadStage(UIResourceEnum.DATAGRAM_MANA_STAGE, new StageStyle[]{ StageStyle.UNDECORATED });
+        stageController.setStage(UIResourceEnum.DATAGRAM_MANA_STAGE);
         super.handleOpenWinAction(event);
     }
 }

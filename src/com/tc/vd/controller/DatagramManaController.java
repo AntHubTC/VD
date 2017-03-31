@@ -11,12 +11,17 @@ import com.tc.vd.ui.control.monologfx.MonologFXButton;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.StageStyle;
 import org.apache.log4j.Logger;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +32,7 @@ import java.util.ResourceBundle;
  * Created by tangcheng on 2017/3/28.
  */
 public class DatagramManaController extends WindowController implements Initializable {
-    private static Logger LOG = Logger.getLogger(VdApplication.class);
+    private static Logger LOG = Logger.getLogger(DatagramManaController.class);
 
     @FXML
     private Button addDataGram;
@@ -83,7 +88,22 @@ public class DatagramManaController extends WindowController implements Initiali
      */
     @FXML
     public void handleNewDragramClick(MouseEvent event){
+        try {
+            UIResourceEnum datagramAdd = UIResourceEnum.DATAGRAM_ADD;
+            URL datagramAddUrl = new File(datagramAdd.getUiResource()).toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(datagramAddUrl, vdLang);
+            Object root = loader.load();
 
+            MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
+            monologFX.setTitleText("新增报文");
+            monologFX.setCenterContent((Node) root);
+            monologFX.addOKButton();
+            monologFX.setButtonAlignment(MonologFX.ButtonAlignment.RIGHT);
+            monologFX.show();
+        } catch (Exception e){
+            LOG.error("新增报文处理报错:", e);
+            e.printStackTrace();
+        }
     }
 
     /**

@@ -4,11 +4,14 @@ import com.tc.vd.utils.FileResUtil;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -32,7 +35,7 @@ public class StageController {
      * @param stageEnum  设定Stage资源
      * @param stage Stage的对象
      */
-    public void addStage(StageEnums stageEnum, Stage stage) {
+    public void addStage(UIResourceEnum stageEnum, Stage stage) {
         stages.put(stageEnum.name(), stage);
     }
 
@@ -42,7 +45,7 @@ public class StageController {
      * @param stageEnum Stage枚举
      * @return 对应的Stage对象
      */
-    public Stage getStage(StageEnums stageEnum) {
+    public Stage getStage(UIResourceEnum stageEnum) {
         return stages.get(stageEnum.name());
     }
 
@@ -61,15 +64,28 @@ public class StageController {
      *
      * @param primaryStage     主舞台对象，在Start()方法中由JavaFx的API建立
      */
-    public void setPrimaryStage(Stage primaryStage) {
-        this.addStage(StageEnums.PRIMARY_STAGE, primaryStage);
-        for (StageStyle style : StageEnums.PRIMARY_STAGE.getStyles()) {
+    public void setPrimaryStage(Stage primaryStage) throws FileNotFoundException {
+        this.addStage(UIResourceEnum.PRIMARY_STAGE, primaryStage);
+        this.loadIcon(primaryStage);
+        for (StageStyle style : UIResourceEnum.PRIMARY_STAGE.getStyles()) {
             primaryStage.initStyle(style);
         }
     }
 
     public Stage getPrimaryStage() {
-        return this.getStage(StageEnums.PRIMARY_STAGE);
+        return this.getStage(UIResourceEnum.PRIMARY_STAGE);
+    }
+
+    /**
+     * 加载icon图标
+     * @param stage
+     * @throws FileNotFoundException
+     */
+    private void loadIcon(Stage stage) throws FileNotFoundException {
+        String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
+        File iconFile = new File(icon);
+        Image iconImg = new Image(new FileInputStream(iconFile));
+        stage.getIcons().add(iconImg);//这里可以设置标题图标也可以设置任务栏图标
     }
 
     /**
@@ -78,7 +94,7 @@ public class StageController {
      * @param stageEnum 场景
      * @return 是否加载成功
      */
-    public boolean loadStage(StageEnums stageEnum, StageStyle... styles) {
+    public boolean loadStage(UIResourceEnum stageEnum, StageStyle... styles) {
         try {
             //加载FXML资源文件
             URL stageRootUrl = new File(stageEnum.getUiResource()).toURI().toURL();
@@ -93,6 +109,9 @@ public class StageController {
             Scene tempScene = new Scene(tempPane);
             Stage tempStage = new Stage();
             tempStage.setScene(tempScene);
+
+            //加入icon图标
+            loadIcon(tempStage);
 
             //----------------加载css样式----------
             ObservableList<String> stylesheets = tempScene.getStylesheets();
@@ -126,7 +145,7 @@ public class StageController {
      * @param stageEnum 需要显示的窗口
      * @return 是否显示成功
      */
-    public boolean setStage(StageEnums stageEnum) {
+    public boolean setStage(UIResourceEnum stageEnum) {
         this.getStage(stageEnum).show();
         return true;
     }
@@ -138,7 +157,7 @@ public class StageController {
      * @param closeStage 需要删除的窗口
      * @return
      */
-    public boolean setStage(StageEnums showStage, StageEnums closeStage) {
+    public boolean setStage(UIResourceEnum showStage, UIResourceEnum closeStage) {
         getStage(closeStage).close();
         setStage(showStage);
         return true;

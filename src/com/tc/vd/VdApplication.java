@@ -6,7 +6,7 @@ import com.tc.vd.config.UserConfig;
 import com.tc.vd.controller.ControlledStage;
 import com.tc.vd.controller.MainController;
 import com.tc.vd.controller.StageController;
-import com.tc.vd.controller.StageEnums;
+import com.tc.vd.controller.UIResourceEnum;
 import com.tc.vd.event.WindowsCloseEvent;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -68,7 +68,7 @@ public class VdApplication extends Application {
         }
 
         //加载主要场景
-        URL stageRootUrl =  StageEnums.PRIMARY_STAGE.getUiResourceUrl();
+        URL stageRootUrl =  UIResourceEnum.PRIMARY_STAGE.getUiResourceUrl();
         FXMLLoader loader = new FXMLLoader(stageRootUrl, vdLang);
         Parent root = (Parent)loader.load();
 
@@ -79,16 +79,10 @@ public class VdApplication extends Application {
         //设置控制器
         MainController mainController = loader.getController();
         ControlledStage controlledStage = (ControlledStage) mainController;
-        controlledStage.setStageController(stageController, StageEnums.PRIMARY_STAGE);//设置场景控制器
+        controlledStage.setStageController(stageController, UIResourceEnum.PRIMARY_STAGE);//设置场景控制器
         mainController.init();//调用初始化方法
 
-        //设置主要舞台其他属性
-        String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
-        File iconFile = new File(icon);
-        Image iconImg = new Image(new FileInputStream(iconFile));
-        primaryStage.getIcons().add(iconImg);//这里可以设置标题图标也可以设置任务栏图标
         primaryStage.initStyle(StageStyle.UNDECORATED);
-
         //收到关闭请求的时候怎么做
         primaryStage.setOnCloseRequest(new WindowsCloseEvent(primaryStage));
 

@@ -11,9 +11,9 @@ public abstract class AppController implements ControlledStage{
     private String stageName;
 
     @Override
-    public void setStageController(StageController stageController, StageEnums stageEnums) {
+    public void setStageController(StageController stageController, UIResourceEnum UIResourceEnum) {
         this.stageController = stageController;
-        this.stageName = stageEnums.name();
+        this.stageName = UIResourceEnum.name();
     }
 
     @Override

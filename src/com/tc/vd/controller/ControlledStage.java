@@ -7,9 +7,9 @@ public interface ControlledStage {
     /**
      * 设置舞台控制器
      * @param stageController
-     * @param stageEnums
+     * @param UIResourceEnum
      */
-    public void setStageController(StageController stageController, StageEnums stageEnums);
+    public void setStageController(StageController stageController, UIResourceEnum UIResourceEnum);
 
     /**
      * 获取舞台控制器
