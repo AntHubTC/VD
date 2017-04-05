@@ -1,13 +1,14 @@
 package com.tc.vd.controller;
 
-import com.sun.javafx.event.EventDispatchChainImpl;
-import com.sun.javafx.event.EventDispatchTreeImpl;
-import com.tc.vd.VdApplication;
+import com.tc.vd.config.ResConstant;
+import com.tc.vd.model.ContactGoalConfig;
 import com.tc.vd.model.Datagram;
+import com.tc.vd.net.IPContact;
+import com.tc.vd.net.PSocketClient;
 import com.tc.vd.service.AddressBook;
 import com.tc.vd.service.DatagramMana;
 import com.tc.vd.ui.control.monologfx.MonologFX;
-import com.tc.vd.ui.control.monologfx.MonologFXButton;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -16,15 +17,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.stage.StageStyle;
+import javafx.util.StringConverter;
 import org.apache.log4j.Logger;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -39,7 +38,20 @@ public class DatagramManaController extends WindowController implements Initiali
     @FXML
     private Button delDataGram;
     @FXML
-    private TreeView treeView;
+    private TreeView datagramTreeView;
+    @FXML
+    private TextArea datagramText;
+    @FXML
+    private TextArea datagramTemplateText;
+    @FXML
+    private ComboBox<ContactGoalConfig> addressCombo;
+    @FXML
+    private TextField sendTimesTxt;
+    @FXML
+    private TextArea datagramRevText;
+    @FXML
+    private Label currentDatagramTitle;
+
 
     /**
      * 初始化
@@ -65,8 +77,8 @@ public class DatagramManaController extends WindowController implements Initiali
             TreeItem<Datagram> dataTree = instance.getData();
 
             //显示到树中
-            treeView.setRoot(dataTree);
-            treeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            datagramTreeView.setRoot(dataTree);
+            datagramTreeView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
                 TreeItem selectedNode = (TreeItem) newValue;
 //                Datagram datagram = (Datagram) (selectedNode).getValue();
 //                String path = datagram.getPath();
@@ -77,8 +89,50 @@ public class DatagramManaController extends WindowController implements Initiali
                 addDataGram.setDisable(false);
                 delDataGram.setDisable(false);
             });
+
+            //初始化地址下拉列表
+            ObservableList items = AddressBook.getInstance().getAddressBookList();
+            addressCombo.setItems(items);
+            addressCombo.setConverter(new StringConverter<ContactGoalConfig>() {
+                @Override
+                public String toString(ContactGoalConfig contactGoalConfig) {
+                    return contactGoalConfig.getName();
+                }
+
+                @Override
+                public ContactGoalConfig fromString(String name) {
+                    ContactGoalConfig contactGoalConfig = AddressBook.getInstance().getAddressBookByName(name);
+                    return contactGoalConfig;
+                }
+            });
+//            采用下面这种设置值到显示中不是很好的方案，应该采用setConverter设置转换器的方式
+//            addressCombo.setCellFactory(new Callback<ListView<ContactGoalConfig>, ListCell<ContactGoalConfig>>() {
+//                @Override
+//                public ListCell<ContactGoalConfig> call(ListView<ContactGoalConfig> param) {
+//                    Object userData = param.getUserData();
+//                    return new ListCell<ContactGoalConfig>(){
+//                        @Override
+//                        protected void updateItem(ContactGoalConfig item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (item == null || empty) {
+//                                setGraphic(null);
+//                            } else {
+//                                //方法一
+//                                setText(item.getName());
+//                                //方法二
+////                                Text text = new Text(item.getName());
+////                                setGraphic(text);
+//                            }
+//                        }
+//                    };
+//                }
+//            });
+
+            //初始化发送次数
+            sendTimesTxt.setText("1");
         } catch (Exception e) {
             e.printStackTrace();
+            LOG.error("报文管理窗口初始化报错", e);
         }
     }
 
@@ -112,47 +166,164 @@ public class DatagramManaController extends WindowController implements Initiali
      */
     @FXML
     public void handleDelDragramClick(MouseEvent event){
-        TreeItem<Datagram> selectedItem = (TreeItem<Datagram>) treeView.getSelectionModel().getSelectedItem();
-        Datagram selectedDatagram = selectedItem.getValue();
-        TreeItem<Datagram> parent = selectedItem.getParent();
+        try {
+            TreeItem<Datagram> selectedItem = (TreeItem<Datagram>) datagramTreeView.getSelectionModel().getSelectedItem();
+            Datagram selectedDatagram = selectedItem.getValue();
+            TreeItem<Datagram> parent = selectedItem.getParent();
 
-        String nodeName = "";
-        if(null == parent) {//如果是根节点，删除所有的子节点
-            nodeName = "所有";
-        } else {//否则删除该子节点
-            if(0 == selectedItem.getChildren().size()){ //单个子节点
-                nodeName = selectedDatagram.getFileName();
-            } else { //包含子节点
-                nodeName = selectedDatagram.getFileName() + "以及子";
-            }
-        }
-
-        //弹出提示框，提示保存成功
-        MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
-        monologFX.setTitleText("提示");
-        monologFX.setMessage("你确定要删除" + nodeName + "节点吗？");
-        monologFX.setOkEventHandler(event1 -> {
-            //点击“确定”要进行的处理
-            //1.删除持久层
-            DatagramMana instance = DatagramMana.getInstance();
-            instance.delete(selectedItem);
-            //2.删除界面上的节点
-            ObservableList<TreeItem<Datagram>> childTreeItems;
+            String nodeName = "";
             if(null == parent) {//如果是根节点，删除所有的子节点
-                childTreeItems = selectedItem.getChildren();
-                childTreeItems.removeAll(childTreeItems);
+                nodeName = "所有";
             } else {//否则删除该子节点
                 if(0 == selectedItem.getChildren().size()){ //单个子节点
+                    nodeName = selectedDatagram.getFileName();
                 } else { //包含子节点
+                    nodeName = selectedDatagram.getFileName() + "以及子";
                 }
-                childTreeItems = parent.getChildren();
-                childTreeItems.remove(selectedItem);
             }
-        });
-        monologFX.setNoEventHandler(event1 -> {
-            //点击"取消"要执行的处理
-        });
-        monologFX.addYesNoButtons();
-        monologFX.show();
+
+            //弹出提示框，提示保存成功
+            MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
+            monologFX.setTitleText("提示");
+            monologFX.setMessage("你确定要删除" + nodeName + "节点吗？");
+            monologFX.setOkEventHandler(event1 -> {
+                //点击“确定”要进行的处理
+                //1.删除持久层
+                DatagramMana instance = DatagramMana.getInstance();
+                instance.delete(selectedItem);
+                //2.删除界面上的节点
+                ObservableList<TreeItem<Datagram>> childTreeItems;
+                if(null == parent) {//如果是根节点，删除所有的子节点
+                    childTreeItems = selectedItem.getChildren();
+                    childTreeItems.removeAll(childTreeItems);
+                } else {//否则删除该子节点
+                    if(0 == selectedItem.getChildren().size()){ //单个子节点
+                    } else { //包含子节点
+                    }
+                    childTreeItems = parent.getChildren();
+                    childTreeItems.remove(selectedItem);
+                }
+            });
+            monologFX.setNoEventHandler(event1 -> {
+                //点击"取消"要执行的处理
+            });
+            monologFX.addYesNoButtons();
+            monologFX.show();
+        } catch (Exception e) {
+            LOG.error("删除报文处理报错:", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 地址下拉框改变处理
+     * @param actionEvent
+     */
+    public void handleAddressComboChange(ActionEvent actionEvent) {
+        ContactGoalConfig selectedItem = addressCombo.getSelectionModel().getSelectedItem();
+
+        LOG.info("地址列表选择了：" + selectedItem);
+    }
+
+    /**
+     * 发送按钮单击处理
+     * @param event
+     */
+    public void handleSendClick(MouseEvent event) {
+        try {
+            //要发送的报文内容
+            String datagram = datagramText.getText();
+            //当前选中的地址
+            ContactGoalConfig selectedItem = addressCombo.getSelectionModel().getSelectedItem();
+            //发送的次数
+            String sendTimesStr = sendTimesTxt.getText();
+            Integer sendTiems;
+
+            //发送校验
+            boolean valid = true;
+            if(null == datagram || "".equals(datagram.trim())){
+                //todo:如果没有填写任何报文,提示用户填写
+
+                valid &= false;
+            }
+            if(null == selectedItem){
+                //todo:如果没有选择地址项，提示用户填写
+
+                valid &= false;
+            }
+            if(null == sendTimesStr || "".equals(sendTimesStr.trim()) || !sendTimesStr.matches("\\d*")){
+                //todo:如果没有选择地址项，提示用户填写
+
+                valid &= false;
+            }
+            if(!valid){ //未校验通过不做以下处理
+                return;
+            }
+
+            sendTiems = Integer.valueOf(sendTimesStr);
+
+            String encoding = selectedItem.getEncoding();//编码
+
+            IPContact contact = new PSocketClient(selectedItem);
+            do {
+                Platform.runLater(() -> {
+                    try {
+                        String revDatagram = contact.sendRev(datagram, encoding);
+                        String text = datagramRevText.getText();
+                        text += revDatagram;
+                        text += "============================================";
+                        datagramRevText.setText(text); //显示接收报文
+                    } catch (Exception e) {
+                        LOG.error("发送报文出错：", e);
+                        e.printStackTrace();
+                    }
+                });
+            } while (--sendTiems > 0);
+        } catch (Exception e) {
+            LOG.error("发送报文处理报错:", e);
+            e.printStackTrace();
+
+            //显示到报文接收中
+            String text = datagramRevText.getText();
+            ByteArrayOutputStream aos = new ByteArrayOutputStream();
+            e.printStackTrace(new PrintStream(aos));
+            String str = new String(aos.toByteArray());
+            text += "发生错误(详情参考日志)：\r\n";
+            text += str + "\r\n";
+            text += "============================================\r\n";
+            datagramRevText.setText(text);
+        }
+    }
+
+    /**
+     * 处理报文树点击事件
+     * @param event
+     */
+    public void handleDatagramTreeClick(MouseEvent event) {
+        try {
+            TreeItem<Datagram> selectedItem = (TreeItem<Datagram>) datagramTreeView.getSelectionModel().getSelectedItem();
+            Datagram datagram = selectedItem.getValue();
+            int clickCount = event.getClickCount();
+            if(1 == clickCount) {//单击
+                System.out.println("");
+            } else if(2 == clickCount){//双击
+                if(datagram.isDatagramText()){
+                    //显示当前报文提示
+                    String path = datagram.getPath();
+                    String rootPath = ResConstant.rootPath;
+                    rootPath += File.separator + "data";
+                    path = path.substring(rootPath.length() + 1);
+                    path = path.replaceAll("/", ">");
+                    path = path.replaceAll("\\\\", ">");
+                    currentDatagramTitle.setText(path);
+                    //显示报文和报文模板
+                    String fileDatagramText = datagram.getDatagramTextContent();
+                    datagramText.setText(fileDatagramText);
+                }
+            };
+        } catch (Exception e) {
+            LOG.error("报文树点击报错:", e);
+            e.printStackTrace();
+        }
     }
 }

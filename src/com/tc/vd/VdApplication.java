@@ -130,7 +130,7 @@ public class VdApplication extends Application {
          * 2.百度搜索：java.awt.PopupMenu汉字乱码问题
          *
          * 暂时解决办法：
-         *      在虚拟机运行VM参数设置-Dfile.encoding=GB18030
+         *      在虚拟机运行VM参数设置-Dfile.encoding=GBK
          */
         PopupMenu popupMenu = new PopupMenu();
 

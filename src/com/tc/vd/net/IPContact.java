@@ -11,5 +11,13 @@ public interface IPContact extends IContact{
 	 * @return
 	 * @throws Exception
 	 */
-	public MsgContent send(MsgContent msgContent) throws Exception;
+	public MsgContent psSend(MsgContent msgContent) throws Exception;
+
+	/**
+	 * 发送报文
+	 * @param msgContent
+	 * @return
+	 * @throws Exception
+	 */
+	public String psSend(String msgContent) throws Exception;
 }

@@ -33,7 +33,7 @@ public class DatagramAddController extends AppController implements Initializabl
         //初始化类型列表
         ObservableList items = typesCombo.getItems();
         items.add("报文");
-        items.add("类别");
+        items.add("分类");
 
         typesCombo.setValue("报文");
     }

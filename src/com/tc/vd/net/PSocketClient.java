@@ -25,26 +25,40 @@ public class PSocketClient extends SocketClient implements IPContact{
 	/**
 	 * 发送报文
 	 */
-	public MsgContent send(MsgContent msgContent) throws Exception{
+	public MsgContent psSend(MsgContent msgContent) throws Exception{
 		String content = msgContent.getString();
+		String msgLen = String.valueOf(cgc.getSendLenEnd());
+		try {
+			String recvMsg = psSend(content);
+			return MsgContent.parse(recvMsg.substring(Integer.valueOf(msgLen)));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}
+
+	/**
+	 * 发送报文
+	 */
+	public String psSend(String msgContent) throws Exception{
 		String charSet = cgc.getEncoding();
 		String msgLen = String.valueOf(cgc.getSendLenEnd());
 		try {
-			int reqLen = content.getBytes(charSet).length;
-			content = String.format("%0" + msgLen + "d%s", reqLen, content);
+			int reqLen = msgContent.getBytes(charSet).length;
+			msgContent = String.format("%0" + msgLen + "d%s", reqLen, msgContent);
 			if(logger.isDebugEnabled()){
 				logger.debug("=======================================");
 				logger.info("报文长度:"+ reqLen);
-				logger.info("发送报文:"+ content);
+				logger.info("发送报文:"+ msgContent);
 				logger.info("=======================================");
 			}
-			
-			String recvMsg = sendRev(content, charSet);
-			
+
+			String recvMsg = sendRev(msgContent, charSet);
+
 			if(logger.isDebugEnabled()){
 				logger.info("接收报文:"+ recvMsg);
 			}
-			return MsgContent.parse(recvMsg.substring(Integer.valueOf(msgLen)));
+			return recvMsg.substring(Integer.valueOf(msgLen));
 		} catch (UnsupportedEncodingException e) {
 			logger.info("不支持的字符编码::" + charSet);
 			e.printStackTrace();

@@ -210,7 +210,9 @@ public class MonologFX {
                     }
                 }
 
-                actionHandler.handle(evt);
+                if(null != actionHandler){
+                    actionHandler.handle(evt);
+                }
 
                 // Close the dialog
                 ((Stage) ((Node) evt.getSource()).getScene().getWindow()).close();

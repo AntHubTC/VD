@@ -42,6 +42,7 @@ public class AddressBook {
         try {
             File resFile = FileResUtil.getResFile(ResConstant.rootPath, ResConstant.addressBook);
             HierarchicalINIConfiguration context = new HierarchicalINIConfiguration();
+            context.setEncoding("utf8");
             context.load(resFile);
             //转换数据
             for (String sectionName : context.getSections()){
@@ -68,6 +69,7 @@ public class AddressBook {
         try {
             File resFile = FileResUtil.getResFile(ResConstant.rootPath, ResConstant.addressBook);
             HierarchicalINIConfiguration context = new HierarchicalINIConfiguration();
+            context.setEncoding("utf8");
             //转换数据
             for (int i = 0; i < addressBookList.size(); i++) {
                 String sectionName = String.valueOf(i);
@@ -84,10 +86,28 @@ public class AddressBook {
     }
 
     public ObservableList<ContactGoalConfig> getAddressBookList() {
+        if(null == addressBookList || 0 == addressBookList.size()){
+            loadData();
+        }
         return addressBookList;
     }
 
     public void setAddressBookList(ObservableList<ContactGoalConfig> addressBookList) {
         AddressBook.addressBookList = addressBookList;
+    }
+
+    /**
+     * 通过地址名称获取地址簿项
+     * @param name 地址名称
+     * @return
+     */
+    public ContactGoalConfig getAddressBookByName(String name) {
+        ObservableList<ContactGoalConfig> _addressBookList = getAddressBookList();
+        for (ContactGoalConfig contactGoalConfig : _addressBookList) {
+            if(name.equals(contactGoalConfig.getName())){
+                return contactGoalConfig;
+            }
+        }
+        return null;
     }
 }

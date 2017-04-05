@@ -1,0 +1,28 @@
+00001342{H:01GUIMCARDCARD2000012017-03-2409:48:32000257GUIM2017032400000000000032421772GUIM20170324000000000000324217721          JYTJKGUIMAP2                  0811012    CARD200001                    00000000000000000000}<?xml version="1.0" encoding="UTF-8"?>
+<Document>
+    <CommonRequestHeader>
+        <PubFirSysName>GUIM</PubFirSysName>
+        <PubFirSysMemName>000000</PubFirSysMemName>
+        <PubFirSysDate>2017-03-24</PubFirSysDate>
+        <PubFirSysTime>09:48:32000253</PubFirSysTime>
+        <PubReqDate>2017-03-24</PubReqDate>
+        <PubReqSeq>GUIM2017032400000000000032421772</PubReqSeq>
+        <PubAccSerDate>2017-07-31</PubAccSerDate>
+        <PubFirSysMemCode>811001</PubFirSysMemCode>
+        <PubFirSysSeq>GUIM2017032400000000000032421772</PubFirSysSeq>
+        <PubReqTranCode>811012</PubReqTranCode>
+        <PubBrcNo>800898001</PubBrcNo>
+        <PubTellerNo>800006</PubTellerNo>
+        <PubWsId1>50-7B-9D-EB-B8-74</PubWsId1>
+        <PubWsAddr1>9.54.8.54</PubWsAddr1>
+        <PubWsAddr2>9.54.8.54</PubWsAddr2>
+        <PubCardChkFlg>1</PubCardChkFlg>
+        <PubCurrPag>1</PubCurrPag>
+        <PubPagNum>20</PubPagNum>
+    </CommonRequestHeader>
+    <Content>
+        <cardType>HKLHNS0002623510</cardType>
+        <MakeType>1</MakeType>
+        <AplyNum>1</AplyNum>
+    </Content>
+</Document>
