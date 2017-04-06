@@ -71,12 +71,19 @@ public class DatagramMana {
         File[] files = resFile.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-                if(dir.isDirectory()){
+                //目录就是报文类别
+                if(new File(dir.getPath(), name).isDirectory()){
                     return true;
                 }
+                //不直接显示模板文件
+                if(null != name && name.endsWith("_template.xml")){
+                    return false;
+                }
+                //除了_template.xml的xml文件就是报文
                 if(null != name && name.endsWith(".xml")){
                     return true;
                 }
+                //其它的筛掉
                 return false;
             }
         });

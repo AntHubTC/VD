@@ -8,6 +8,7 @@ import com.tc.vd.net.PSocketClient;
 import com.tc.vd.service.AddressBook;
 import com.tc.vd.service.DatagramMana;
 import com.tc.vd.ui.control.monologfx.MonologFX;
+import com.tc.vd.utils.KeyValue;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.*;
@@ -147,10 +148,72 @@ public class DatagramManaController extends WindowController implements Initiali
             URL datagramAddUrl = new File(datagramAdd.getUiResource()).toURI().toURL();
             FXMLLoader loader = new FXMLLoader(datagramAddUrl, vdLang);
             Object root = loader.load();
+            DatagramAddController datagramAddController = loader.getController();
 
             MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
             monologFX.setTitleText("新增报文");
             monologFX.setCenterContent((Node) root);
+            monologFX.setOkEventHandler(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    try {
+                        String newDatagramName = datagramAddController.nameTxt.getText();
+                        KeyValue<Integer, String> comboSelectedItem = datagramAddController.typesCombo.getSelectionModel().getSelectedItem();
+                        if(null == newDatagramName || "".equals(newDatagramName)){
+                            //todo: 校验不通过提示
+                            return;
+                        }
+                        if(null == comboSelectedItem){
+                            //todo: 如果没有选择报文的类型提示
+                            return;
+                        }
+                        Integer key = comboSelectedItem.getKey();
+                        TreeItem<Datagram> treeSelectItem = (TreeItem<Datagram>) datagramTreeView.getSelectionModel().getSelectedItem();
+                        Datagram selectDatagram = treeSelectItem.getValue();
+                        String selectPath = selectDatagram.getPath();
+                        String selectFileName = selectDatagram.getFileName();
+                        boolean isSelectDatagramXml = selectFileName.endsWith(".xml");
+                        if(isSelectDatagramXml){
+                            //如果是xml文件，那么就是同级目录
+                            selectPath = selectPath.substring(0, selectPath.length() - selectFileName.length());
+                        }
+                        ObservableList<TreeItem<Datagram>> children = treeSelectItem.getChildren();
+                        TreeItem<Datagram> datagramTreeItem = new TreeItem<>();
+                        String path = selectPath + File.separator + newDatagramName;
+                        Datagram datagram = null;
+                        boolean isSuccess = false;
+                        if(1 == key){ //报文
+                            newDatagramName += ".xml";
+                            path += ".xml";
+                            datagram = new Datagram(path, newDatagramName);
+                            isSuccess = datagram.createFile(false); //创建文件
+                        } else if(2 == key){ //类别
+                            datagram = new Datagram(path, newDatagramName);
+                            isSuccess = datagram.createFile(true); //创建文件
+                        }
+
+                        if (!isSuccess) {
+                            //todo: 未成功提示
+                            return;
+                        }
+
+                        //展开新建的目录树
+                        datagramTreeItem.setValue(datagram);
+                        if(isSelectDatagramXml){
+                            treeSelectItem.getParent().getChildren().add(datagramTreeItem);
+                            //展开父目录
+                            treeSelectItem.getParent().setExpanded(true);
+                        } else {
+                            children.add(datagramTreeItem);
+                            //展开当前目录
+                            treeSelectItem.setExpanded(true);
+                        }
+                    } catch (Exception e) {
+                        LOG.error("新增报文确定后报错:", e);
+                        e.printStackTrace();
+                    }
+                }
+            });
             monologFX.addOKButton();
             monologFX.setButtonAlignment(MonologFX.ButtonAlignment.RIGHT);
             monologFX.show();

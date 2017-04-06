@@ -19,6 +19,19 @@ public class Datagram {
         this.fileName = fileName;
     }
 
+    /**
+     * 获取模板路径
+     * @return
+     */
+    public String getTemplatePath() {
+        if(null == path) return null;
+        if(!path.endsWith(".xml")) return null;
+        String templatePath = "";
+        templatePath = path.substring(0, path.length() - ".xml".length());
+        templatePath += "_template.xml";
+        return templatePath;
+    }
+
     public String getPath() {
         return path;
     }
@@ -82,5 +95,31 @@ public class Datagram {
                 br.close();
             }
         }
+    }
+
+    /**
+     * 创建报文文件
+     * @param isCatalog
+     * @return
+     * @throws IOException
+     */
+    public boolean createFile(boolean isCatalog) throws IOException {
+        //创建报文或报文类别
+        File datagramFile = new File(path);
+        boolean isCreateSuccess = false;
+        if(isCatalog){
+            isCreateSuccess = datagramFile.mkdir();
+        } else {
+            isCreateSuccess = datagramFile.createNewFile();
+            if(isCreateSuccess){ //如果是报文，那么还需要创建对应的报文模板
+                String templateFilePath = getTemplatePath();
+                File templateFile = new File(templateFilePath);
+                isCreateSuccess &= templateFile.createNewFile();
+                if(!isCreateSuccess){ //未成功，删除之前创建的报文文件
+                    datagramFile.delete();
+                }
+            }
+        }
+        return isCreateSuccess;
     }
 }

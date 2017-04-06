@@ -1,11 +1,12 @@
 package com.tc.vd.controller;
 
+import com.tc.vd.utils.KeyValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 import org.apache.log4j.Logger;
 
 import java.net.URL;
@@ -19,10 +20,9 @@ public class DatagramAddController extends AppController implements Initializabl
     private static Logger LOG = Logger.getLogger(DatagramAddController.class);
 
     @FXML
-    private TextField nameTxt; //名称
+    public TextField nameTxt; //名称
     @FXML
-    private ComboBox typesCombo; //类型
-
+    public ComboBox<KeyValue<Integer, String>> typesCombo; //类型
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -31,10 +31,27 @@ public class DatagramAddController extends AppController implements Initializabl
         }
 
         //初始化类型列表
-        ObservableList items = typesCombo.getItems();
-        items.add("报文");
-        items.add("分类");
+        ObservableList<KeyValue<Integer, String>> items = typesCombo.getItems();
+        items.add(new KeyValue<Integer, String>(1, "报文"));
+        items.add(new KeyValue<Integer, String>(2, "分类"));
 
-        typesCombo.setValue("报文");
+        typesCombo.setConverter(new StringConverter<KeyValue<Integer, String>>() {
+            @Override
+            public String toString(KeyValue<Integer, String> keyValue) {
+                return keyValue.getValue();
+            }
+            @Override
+            public KeyValue<Integer, String> fromString(String value) {
+                for (KeyValue<Integer, String> item : items) {
+                    if(item.getValue().equals(value)){
+                        return item;
+                    }
+                }
+                return null;
+            }
+        });
+
+        //默认选中报文
+        typesCombo.setValue(items.get(0));
     }
 }
