@@ -41,7 +41,7 @@ public class AddressBookController extends WindowController implements Initializ
     @FXML
     public TableColumn<ContactGoalConfig, String> ipColumn; //ip
     @FXML
-    public TableColumn<ContactGoalConfig, String> portColumn; //端口
+    public TableColumn<ContactGoalConfig, Integer> portColumn; //端口
     @FXML
     public TableColumn<ContactGoalConfig, Integer> sendBeginColumn; //发送开始位置
     @FXML
@@ -118,7 +118,7 @@ public class AddressBookController extends WindowController implements Initializ
         this.ipColumn.setCellValueFactory(
                 new PropertyValueFactory<ContactGoalConfig, String>("ip"));
         this.portColumn.setCellValueFactory(
-                new PropertyValueFactory<ContactGoalConfig, String>("port"));
+                new PropertyValueFactory<ContactGoalConfig, Integer>("port"));
         this.sendBeginColumn.setCellValueFactory(
                 new PropertyValueFactory<ContactGoalConfig, Integer>("sendLenBegin"));
         this.sendLenEndColumn.setCellValueFactory(
@@ -198,15 +198,15 @@ public class AddressBookController extends WindowController implements Initializ
                 contactGoalConfig.setIp(newValue);
             }
         });
-        this.portColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, String>>() {
+        this.portColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
             @Override
-            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, String> event) {
-                String newValue = event.getNewValue();
+            public void handle(TableColumn.CellEditEvent<ContactGoalConfig, Integer> event) {
+                Integer newValue = event.getNewValue();
                 ObservableList<ContactGoalConfig> items = event.getTableView().getItems();
                 int row = event.getTablePosition().getRow();
                 ContactGoalConfig contactGoalConfig = items.get(row);
 
-                contactGoalConfig.setName(newValue);
+                contactGoalConfig.setPort(newValue);
             }
         });
         this.sendBeginColumn.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<ContactGoalConfig, Integer>>() {
