@@ -74,7 +74,7 @@
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                <Image url="@skin/CASPIAN/images/btn.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -91,7 +91,7 @@
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                    <Image url="@skin/CASPIAN/images/addressBook.png" />
                                  </image>
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
@@ -117,7 +117,7 @@
                            <graphic>
                               <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
+                                    <Image url="@skin/CASPIAN/images/datagramMana.png" />
                                  </image>
                               </ImageView>
                            </graphic>
