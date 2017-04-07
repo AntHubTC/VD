@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.control.*?>
@@ -42,7 +43,7 @@
         </AnchorPane>
         <ToolBar maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
             <items>
-                <Button mnemonicParsing="false" onMouseClicked="#handleNewBtnClick" text="New">
+                <Button mnemonicParsing="false" onMouseClicked="#handleNewBtnClick" text="%app.addressBookfun.new">
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -51,7 +52,7 @@
                         </ImageView>
                     </graphic>
                 </Button>
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleDelBtnClick" text="delete">
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleDelBtnClick" text="%app.addressBookfun.del">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -60,7 +61,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button layoutX="79.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleSaveBtnClick" text="save">
+            <Button layoutX="79.0" layoutY="10.0" mnemonicParsing="false" onMouseClicked="#handleSaveBtnClick" text="%app.addressBookfun.save">
                <graphic>
                   <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -75,18 +76,18 @@
          <children>
             <TableView fx:id="addressBookView" editable="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="528.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <columns>
-                    <TableColumn id="nameColumn" fx:id="nameColumn" prefWidth="90.0" text="地址名称" />
-                    <TableColumn id="protocolColumn" fx:id="protocolColumn" prefWidth="75.0" text="协议" />
-                    <TableColumn id="ipColumn" fx:id="ipColumn" prefWidth="90.0" text="ip" />
-                    <TableColumn id="portColumn" fx:id="portColumn" prefWidth="75.0" text="端口" />
-                    <TableColumn id="sendBeginColumn" fx:id="sendBeginColumn" prefWidth="85.0" text="发送开始位置" />
-                    <TableColumn id="sendLenEndColumn" fx:id="sendLenEndColumn" prefWidth="85.0" text="发送结束位置" />
-                    <TableColumn id="recvLenBeginColumn" fx:id="recvLenBeginColumn" prefWidth="85.0" text="接收开始位置" />
-                    <TableColumn id="recvLenEndColumn" fx:id="recvLenEndColumn" prefWidth="85.0" text="接收结束位置" />
-                    <TableColumn id="timeOutColumn" fx:id="timeOutColumn" prefWidth="75.0" text="超时时间" />
-                    <TableColumn id="encodingColumn" fx:id="encodingColumn" prefWidth="75.0" text="编码" />
-                    <TableColumn id="bufferSizeColumn" fx:id="bufferSizeColumn" prefWidth="75.0" text="缓冲大小" />
-                    <TableColumn id="commentColumn" fx:id="commentColumn" prefWidth="95.0" text="备注" />
+                    <TableColumn id="nameColumn" fx:id="nameColumn" prefWidth="90.0" text="%app.addressBookfun.addressName" />
+                    <TableColumn id="protocolColumn" fx:id="protocolColumn" prefWidth="75.0" text="%app.addressBookfun.protocol" />
+                    <TableColumn id="ipColumn" fx:id="ipColumn" prefWidth="90.0" text="%app.addressBookfun.ip" />
+                    <TableColumn id="portColumn" fx:id="portColumn" prefWidth="75.0" text="%app.addressBookfun.port" />
+                    <TableColumn id="sendBeginColumn" fx:id="sendBeginColumn" prefWidth="85.0" text="%app.addressBookfun.sendLenBegin" />
+                    <TableColumn id="sendLenEndColumn" fx:id="sendLenEndColumn" prefWidth="85.0" text="%app.addressBookfun.sendLenEnd" />
+                    <TableColumn id="recvLenBeginColumn" fx:id="recvLenBeginColumn" prefWidth="85.0" text="%app.addressBookfun.recvLenBegin" />
+                    <TableColumn id="recvLenEndColumn" fx:id="recvLenEndColumn" prefWidth="85.0" text="%app.addressBookfun.recvLenEnd" />
+                    <TableColumn id="timeOutColumn" fx:id="timeOutColumn" prefWidth="75.0" text="%app.addressBookfun.timeOut" />
+                    <TableColumn id="encodingColumn" fx:id="encodingColumn" prefWidth="75.0" text="%app.addressBookfun.encoding" />
+                    <TableColumn id="bufferSizeColumn" fx:id="bufferSizeColumn" prefWidth="75.0" text="%app.addressBookfun.bufferSize" />
+                    <TableColumn id="commentColumn" fx:id="commentColumn" prefWidth="95.0" text="%app.addressBookfun.comment" />
                 </columns>
             </TableView>
          </children></AnchorPane>

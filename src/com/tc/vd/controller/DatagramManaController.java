@@ -140,6 +140,7 @@ public class DatagramManaController extends WindowController implements Initiali
             //双向绑定
             datagramRevTextProp = new SimpleStringProperty();
             datagramRevText.textProperty().bind(datagramRevTextProp);
+            datagramRevTextProp.setValue("");
 
         } catch (Exception e) {
             e.printStackTrace();

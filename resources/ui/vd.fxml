@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
@@ -48,11 +49,6 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleCloseWinBtnClick" text="%app.menu.file.close" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                    </items>
-                </Menu>
                 <Menu mnemonicParsing="false" text="%app.menu.view">
                     <items>
                         <MenuItem mnemonicParsing="false" text="%app.menu.view.window" />
@@ -74,7 +70,7 @@
         </MenuBar>
         <ToolBar maxWidth="1.7976931348623157E308" prefHeight="22.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
             <items>
-                <Button mnemonicParsing="false" text="New">
+                <Button disable="true" mnemonicParsing="false" text="%app.toolbar.btn">
                     <graphic>
                         <ImageView fitHeight="18.0" fitWidth="37.0" pickOnBounds="true" preserveRatio="true">
                             <image>
@@ -129,30 +125,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Label text="报文管理">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor></Label>
-                     </children>
-                     <TilePane.margin>
-                        <Insets left="10.0" top="10.0" />
-                     </TilePane.margin>
-                  </VBox>
-                  <VBox layoutX="110.0" layoutY="20.0" style="-fx-alignment: center;">
-                     <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" styleClass="app-fun-icon-btn" stylesheets="@skin/CASPIAN/vd.css">
-                           <graphic>
-                              <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@skin/CASPIAN/images/helpDoc.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label text="DB密码密文生成">
+                        <Label text="%app.datagramManafun">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor></Label>

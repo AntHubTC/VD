@@ -50,8 +50,8 @@ public class VdApplication extends Application {
     @Override
     public void start(final Stage primaryStage) throws Exception{
         //Locale locale1 = new Locale("zh", "CN");
-        //Locale locale1 = new Locale("en", "US");
-        //ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", locale1);
+//        Locale locale1 = new Locale("en", "US");
+//        ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", locale1);
         ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", Locale.getDefault());//国际化资源获取
         stageController.setVdLang(vdLang);
         stageController.setPrimaryStage(primaryStage);

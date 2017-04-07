@@ -32,18 +32,19 @@ public class DatagramAddController extends AppController implements Initializabl
 
         //初始化类型列表
         ObservableList<KeyValue<Integer, String>> items = typesCombo.getItems();
-        items.add(new KeyValue<Integer, String>(1, "报文"));
-        items.add(new KeyValue<Integer, String>(2, "分类"));
+        items.add(new KeyValue<Integer, String>(1, resources.getString("app.datagramManafun.addType.1")));
+        items.add(new KeyValue<Integer, String>(2, resources.getString("app.datagramManafun.addType.2")));
 
         typesCombo.setConverter(new StringConverter<KeyValue<Integer, String>>() {
             @Override
             public String toString(KeyValue<Integer, String> keyValue) {
                 return keyValue.getValue();
             }
+
             @Override
             public KeyValue<Integer, String> fromString(String value) {
                 for (KeyValue<Integer, String> item : items) {
-                    if(item.getValue().equals(value)){
+                    if (item.getValue().equals(value)) {
                         return item;
                     }
                 }

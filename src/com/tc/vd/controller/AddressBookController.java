@@ -330,13 +330,16 @@ public class AddressBookController extends WindowController implements Initializ
         if(null == selectedItem){
             //弹出提示框
             MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
-            monologFX.setTitleText("提示");
-            monologFX.setMessage("请选择要删除的地址项!~");
+            monologFX.setTitleText(vdLang.getString("app.addressBookfun.delWinTitle"));
+            monologFX.setMessage(vdLang.getString("app.addressBookfun.delWarnInfo"));
 //            monologFX.setDisplayTime(2);
 
             monologFX.show();
         }
         if(SelectionMode.SINGLE.equals(selectionModel.getSelectionMode())){//如果是单行删除
+            //todo: 删除没有警告信息
+            //todo: 删除文件中的地址簿信息
+            //删除显示的元素
             addressBookList.remove(selectedItem);
 
             if(LOG.isDebugEnabled()){
@@ -359,8 +362,8 @@ public class AddressBookController extends WindowController implements Initializ
 
         //弹出提示框，提示保存成功
         MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
-        monologFX.setTitleText("提示");
-        monologFX.setMessage("保存成功!~");
+        monologFX.setTitleText(vdLang.getString("app.addressBookfun.saveWinTitle"));
+        monologFX.setMessage(vdLang.getString("app.addressBookfun.saveSuccInfo"));
         monologFX.setDisplayTime(2);
 
         monologFX.show();
