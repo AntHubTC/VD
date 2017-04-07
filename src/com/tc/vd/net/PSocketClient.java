@@ -45,7 +45,9 @@ public class PSocketClient extends SocketClient implements IPContact{
 		String msgLen = String.valueOf(cgc.getSendLenEnd());
 		try {
 			int reqLen = msgContent.getBytes(charSet).length;
-			msgContent = String.format("%0" + msgLen + "d%s", reqLen, msgContent);
+			if(!"0".equals(msgLen)){
+				msgContent = String.format("%0" + msgLen + "d%s", reqLen, msgContent);
+			}
 			if(logger.isDebugEnabled()){
 				logger.debug("=======================================");
 				logger.info("报文长度:"+ reqLen);

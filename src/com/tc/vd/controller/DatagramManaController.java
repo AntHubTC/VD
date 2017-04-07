@@ -335,7 +335,7 @@ public class DatagramManaController extends WindowController implements Initiali
                         String revDatagram = contact.psSend(datagram);
                         String text = datagramRevText.getText();
                         text += revDatagram;
-                        text += "============================================";
+                        text += "============================================\r\n";
                         datagramRevText.setText(text); //显示接收报文
                     } catch (Exception e) {
                         LOG.error("发送报文出错：", e);
