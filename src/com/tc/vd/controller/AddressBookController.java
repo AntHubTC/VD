@@ -64,12 +64,8 @@ public class AddressBookController extends WindowController implements Initializ
      * @param location
      * @param resources
      */
-//    static Integer num = 0;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        if(num == 1) return;
-//        num++;
-//        LOG.info("运行次数:" + num);
         super.initialize(location, resources);
 
         Callback callbackRtnTFTCStr = new Callback<TableColumn<ContactGoalConfig, String>, TableCell<ContactGoalConfig, String>>() {

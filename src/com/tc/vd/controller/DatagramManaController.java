@@ -62,6 +62,7 @@ public class DatagramManaController extends WindowController implements Initiali
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        super.initialize(location, resources);
 //        TreeItem<String> root = new TreeItem<String>("Root Node");
 //        root.setExpanded(true);
 //        root.getChildren().addAll(
