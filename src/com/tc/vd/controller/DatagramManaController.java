@@ -10,6 +10,8 @@ import com.tc.vd.service.DatagramMana;
 import com.tc.vd.ui.control.monologfx.MonologFX;
 import com.tc.vd.utils.KeyValue;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.*;
 import javafx.fxml.FXML;
@@ -33,6 +35,8 @@ import java.util.ResourceBundle;
  */
 public class DatagramManaController extends WindowController implements Initializable {
     private static Logger LOG = Logger.getLogger(DatagramManaController.class);
+
+    private StringProperty datagramRevTextProp;
 
     @FXML
     private Button addDataGram;
@@ -132,6 +136,11 @@ public class DatagramManaController extends WindowController implements Initiali
 
             //初始化发送次数
             sendTimesTxt.setText("1");
+
+            //双向绑定
+            datagramRevTextProp = new SimpleStringProperty();
+            datagramRevText.textProperty().bind(datagramRevTextProp);
+
         } catch (Exception e) {
             e.printStackTrace();
             LOG.error("报文管理窗口初始化报错", e);
@@ -152,7 +161,8 @@ public class DatagramManaController extends WindowController implements Initiali
             DatagramAddController datagramAddController = loader.getController();
 
             MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
-            monologFX.setTitleText("新增报文");
+            String addDatagramWinTitle = vdLang.getString("app.datagramManafun.addWinTitle");
+            monologFX.setTitleText(addDatagramWinTitle);
             monologFX.setCenterContent((Node) root);
             monologFX.setOkEventHandler(new EventHandler<ActionEvent>() {
                 @Override
@@ -248,7 +258,7 @@ public class DatagramManaController extends WindowController implements Initiali
 
             //弹出提示框，提示保存成功
             MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
-            monologFX.setTitleText("提示");
+            monologFX.setTitleText(vdLang.getString("app.datagramManafun.delWinTitle"));
             monologFX.setMessage("你确定要删除" + nodeName + "节点吗？");
             monologFX.setOkEventHandler(event1 -> {
                 //点击“确定”要进行的处理
@@ -329,46 +339,63 @@ public class DatagramManaController extends WindowController implements Initiali
             String encoding = selectedItem.getEncoding();//编码
 
             do {
-                Platform.runLater(() -> {
-                    IPContact contact = new PSocketClient(selectedItem);
-                    try {
-                        contact.connect();
-                        String revDatagram = contact.psSend(datagram);
-                        String text = datagramRevText.getText();
-                        text += revDatagram;
-                        text += "============================================\r\n";
-                        datagramRevText.setText(text); //显示接收报文
-                    } catch (Exception e) {
-                        LOG.error("发送报文出错：", e);
-                        e.printStackTrace();
+                new Thread(new Runnable() {  //启动子线程来发报文接收报文
+                    @Override
+                    public void run() {
+                        IPContact contact = new PSocketClient(selectedItem);
+                        try {
+                            contact.connect();
+                            String revDatagram = contact.psSend(datagram);
+                            String text = datagramRevTextProp.getValue();
+                            text += revDatagram;
+                            text += "============================================\r\n";
 
-                        //显示到报文接收中
-                        String text = datagramRevText.getText();
-                        ByteArrayOutputStream aos = new ByteArrayOutputStream();
-                        e.printStackTrace(new PrintStream(aos));
-                        String str = new String(aos.toByteArray());
-                        text += "发生错误(详情参考日志)：\r\n";
-                        text += str + "\r\n";
-                        text += "============================================\r\n";
-                        datagramRevText.setText(text);
-                    } finally {
-                        contact.close();
+                            final String displayText = text;
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    datagramRevTextProp.setValue(displayText);//显示接收报文
+                                }
+                            });
+                        } catch (Exception e) {
+                            LOG.error("发送报文出错：", e);
+                            e.printStackTrace();
+
+                            //显示到报文接收中
+                            String text = datagramRevTextProp.getValue();
+                            ByteArrayOutputStream aos = new ByteArrayOutputStream();
+                            e.printStackTrace(new PrintStream(aos));
+                            String str = new String(aos.toByteArray());
+                            text += "发生错误(详情参考日志)：\r\n";
+                            text += str + "\r\n";
+                            text += "============================================\r\n";
+
+                            final String displayText = text;
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    datagramRevTextProp.setValue(displayText);
+                                }
+                            });
+                        } finally {
+                            contact.close();
+                        }
                     }
-                });
+                }).start();
             } while (--sendTiems > 0);
         } catch (Exception e) {
             LOG.error("发送报文处理报错:", e);
             e.printStackTrace();
 
             //显示到报文接收中
-            String text = datagramRevText.getText();
+            String text = datagramRevTextProp.getValue();
             ByteArrayOutputStream aos = new ByteArrayOutputStream();
             e.printStackTrace(new PrintStream(aos));
             String str = new String(aos.toByteArray());
             text += "发生错误(详情参考日志)：\r\n";
             text += str + "\r\n";
             text += "============================================\r\n";
-            datagramRevText.setText(text);
+            datagramRevTextProp.setValue(text);
         }
     }
 
