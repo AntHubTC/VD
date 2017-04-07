@@ -327,11 +327,12 @@ public class DatagramManaController extends WindowController implements Initiali
 
             String encoding = selectedItem.getEncoding();//编码
 
-            IPContact contact = new PSocketClient(selectedItem);
             do {
                 Platform.runLater(() -> {
+                    IPContact contact = new PSocketClient(selectedItem);
                     try {
-                        String revDatagram = contact.sendRev(datagram, encoding);
+                        contact.connect();
+                        String revDatagram = contact.psSend(datagram);
                         String text = datagramRevText.getText();
                         text += revDatagram;
                         text += "============================================";
@@ -339,6 +340,18 @@ public class DatagramManaController extends WindowController implements Initiali
                     } catch (Exception e) {
                         LOG.error("发送报文出错：", e);
                         e.printStackTrace();
+
+                        //显示到报文接收中
+                        String text = datagramRevText.getText();
+                        ByteArrayOutputStream aos = new ByteArrayOutputStream();
+                        e.printStackTrace(new PrintStream(aos));
+                        String str = new String(aos.toByteArray());
+                        text += "发生错误(详情参考日志)：\r\n";
+                        text += str + "\r\n";
+                        text += "============================================\r\n";
+                        datagramRevText.setText(text);
+                    } finally {
+                        contact.close();
                     }
                 });
             } while (--sendTiems > 0);

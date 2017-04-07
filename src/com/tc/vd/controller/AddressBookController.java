@@ -90,12 +90,6 @@ public class AddressBookController extends WindowController implements Initializ
             public TableCell<ContactGoalConfig, String> call(TableColumn<ContactGoalConfig, String> param) {
                 TextFieldTableCell textFieldTableCell = new TextFieldTableCell(new IntegerStringConverter());
                 textFieldTableCell.setEditable(true);
-                textFieldTableCell.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        textFieldTableCell.startEdit();
-                    }
-                });
                 return textFieldTableCell;
             }
         };

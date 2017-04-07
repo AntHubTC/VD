@@ -102,8 +102,9 @@ public class SocketClient implements IContact{
 		ByteBuffer writeBuf = null;
 	    try {
 	    	writeBuf = ByteBuffer.wrap(data);
-	    	while( writeBuf.hasRemaining())
-	    		client.write(writeBuf);
+	    	while(writeBuf.hasRemaining()){
+				int write = client.write(writeBuf);
+			}
 	    	
 	    	ByteBuffer readBuf = ByteBuffer.allocate(bufferSize);
 	    	boolean flag = true;

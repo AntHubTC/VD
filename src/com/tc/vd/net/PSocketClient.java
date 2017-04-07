@@ -17,7 +17,7 @@ public class PSocketClient extends SocketClient implements IPContact{
 	}
 
 	public PSocketClient(ContactGoalConfig cgc) {
-		super(cgc.getUri().getHost(), cgc.getUri().getPort(), cgc.getTimeOut());
+		super(cgc.getIp(), cgc.getPort(), cgc.getTimeOut());
 		super.setBufferSize(cgc.getBufferSize());
 		this.cgc = cgc;
 	}
