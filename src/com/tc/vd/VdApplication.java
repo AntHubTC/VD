@@ -99,6 +99,12 @@ public class VdApplication extends Application {
         try {
             //载入系统环境变量
             new SysConfig();
+            //设置皮肤
+            String skin = System.getProperty("ui.skin");
+            if(null != skin && !"".equals(skin)){
+                //System.setProperty("javafx.userAgentStylesheetUrl", skin);
+                setUserAgentStylesheet(skin);
+            }
             //更改system输出
             String runMode = System.getProperty("app.runmode");
             if(!"dev".equals(runMode)){

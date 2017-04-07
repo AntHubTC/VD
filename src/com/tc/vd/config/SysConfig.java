@@ -23,12 +23,6 @@ public class SysConfig {
      * 载入配置后执行
      */
     private static void loadAfter() {
-        //设置皮肤
-        String skin = System.getProperty("ui.skin");
-        if(null != skin && !"".equals(skin)){
-            System.setProperty("javafx.userAgentStylesheetUrl", skin);
-        }
-
         //处理环境变量
         System.setProperty("res.css.skin.path", System.getProperty("res.css.path") + System.getProperty("ui.skin"));
     }
