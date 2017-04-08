@@ -1,5 +1,7 @@
 package com.tc.vd.model;
 
+import com.tc.vd.utils.FileReaderUtil;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,6 +15,7 @@ public class Datagram {
     public String path; //文件路径
     public String fileName; //文件名
     private String datagramTextContent = null; //报文内容
+    private String datagramTemplateTextContent = null; //报文模板内容
 
     public Datagram(String path, String fileName) {
         this.path = path;
@@ -76,25 +79,22 @@ public class Datagram {
     public String getDatagramTextContent() throws Exception {
         if(null != datagramTextContent) return datagramTextContent;
         if(isDatagramCatalog()) return null;
-        BufferedReader br = null;
-        try {
-            StringBuilder sb = new StringBuilder();
-            File file = new File(this.getPath());
-            br = new BufferedReader(new FileReader(file));
-            String s = null;
-            while ((s = br.readLine()) != null) {
-                sb.append(s);
-                sb.append(System.lineSeparator());//换行符
-            }
-            datagramTextContent = sb.toString();
-            return datagramTextContent;
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            if(null != br){
-                br.close();
-            }
-        }
+        String fileContent = FileReaderUtil.getFileContent(this.getPath());
+        datagramTextContent = fileContent;
+        return fileContent;
+    }
+
+    /**
+     * 获取报文模板内容
+     * @return
+     */
+    public String getDatagramTemplateTextContent() throws IOException {
+        if(null != datagramTemplateTextContent) return datagramTemplateTextContent;
+        if(isDatagramCatalog()) return null;
+        String templatePath = this.getTemplatePath();
+        String fileContent = FileReaderUtil.getFileContent(templatePath);
+        datagramTemplateTextContent = fileContent;
+        return fileContent;
     }
 
     /**

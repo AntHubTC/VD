@@ -436,9 +436,12 @@ public class DatagramManaController extends WindowController implements Initiali
                     path = path.replaceAll("/", ">");
                     path = path.replaceAll("\\\\", ">");
                     currentDatagramTitle.setText(path);
-                    //显示报文和报文模板
+                    //显示报文
                     String fileDatagramText = datagram.getDatagramTextContent();
                     datagramText.setText(fileDatagramText);
+                    //显示报文模板
+                    String fileDatagramTemplateText = datagram.getDatagramTemplateTextContent();
+                    datagramTemplateText.setText(fileDatagramTemplateText);
                 }
             };
         } catch (Exception e) {
