@@ -449,4 +449,32 @@ public class DatagramManaController extends WindowController implements Initiali
             e.printStackTrace();
         }
     }
+
+    /**
+     * 保存按钮报文处理
+     * @param event
+     */
+    public void handleDatagramSaveClick(MouseEvent event) {
+        String datagramTextText = datagramText.getText();
+
+        System.out.println("报文保存");
+    }
+
+    /**
+     * 清除按钮报文处理
+     * @param event
+     */
+    public void handleDatagramClearClick(MouseEvent event) {
+        MonologFX mfx = new MonologFX(MonologFX.Type.QUESTION);
+        mfx.setTitleText(vdLang.getString("app.datagramManafun.clearWarnTitle"));
+        mfx.setMessage(vdLang.getString("app.datagramManafun.clearWarnMsg"));
+        mfx.setOkEventHandler(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                //报文内容框清除
+                datagramText.setText("");
+            }
+        });
+        mfx.show();
+    }
 }
