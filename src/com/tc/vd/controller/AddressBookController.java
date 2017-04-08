@@ -5,6 +5,7 @@ import com.tc.vd.service.AddressBook;
 import com.tc.vd.model.ContactGoalConfig;
 import com.tc.vd.ui.control.monologfx.MonologFX;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -330,21 +331,32 @@ public class AddressBookController extends WindowController implements Initializ
         if(null == selectedItem){
             //弹出提示框
             MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
-            monologFX.setTitleText(vdLang.getString("app.addressBookfun.delWinTitle"));
-            monologFX.setMessage(vdLang.getString("app.addressBookfun.delWarnInfo"));
+            monologFX.setTitleText(vdLang.getString("app.addressBookfun.delWinTitle.1"));
+            monologFX.setMessage(vdLang.getString("app.addressBookfun.delWarnInfo.1"));
 //            monologFX.setDisplayTime(2);
 
             monologFX.show();
         }
         if(SelectionMode.SINGLE.equals(selectionModel.getSelectionMode())){//如果是单行删除
-            //todo: 删除没有警告信息
-            //todo: 删除文件中的地址簿信息
-            //删除显示的元素
-            addressBookList.remove(selectedItem);
+            //删除警告询问
+            MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
+            monologFX.setTitleText(vdLang.getString("app.addressBookfun.delWinTitle.2"));
+            monologFX.setMessage(String.format(vdLang.getString("app.addressBookfun.delWarnInfo.2") ,selectedItem.getName()));
+            monologFX.setOkEventHandler(new EventHandler<ActionEvent>() {//确定处理
+                @Override
+                public void handle(ActionEvent event) {
+                    System.out.println("啊，我被删除了！~");
 
-            if(LOG.isDebugEnabled()){
-                LOG.debug("处理地址簿删除数据，删除地址信息：" + selectedItem);
-            }
+                    //删除显示的元素
+                    addressBookList.remove(selectedItem);
+                    AddressBook.getInstance().persistData();//从列表中移除了，保存现在的数据
+
+                    if(LOG.isDebugEnabled()){
+                        LOG.debug("处理地址簿删除数据，删除地址信息：" + selectedItem);
+                    }
+                }
+            });
+            monologFX.show();
         }
     }
 
