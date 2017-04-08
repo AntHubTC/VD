@@ -171,12 +171,18 @@ public class DatagramManaController extends WindowController implements Initiali
                     try {
                         String newDatagramName = datagramAddController.nameTxt.getText();
                         KeyValue<Integer, String> comboSelectedItem = datagramAddController.typesCombo.getSelectionModel().getSelectedItem();
-                        if(null == newDatagramName || "".equals(newDatagramName)){
-                            //todo: 校验不通过提示
+                        if(null == newDatagramName || "".equals(newDatagramName) || !newDatagramName.matches("[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$")){
+                            MonologFX mfx1 = new MonologFX(MonologFX.Type.INFO);
+                            mfx1.setTitleText(vdLang.getString("app.datagramManafun.addErrWinTitle.1"));
+                            mfx1.setMessage(vdLang.getString("app.datagramManafun.addErrMsg.1"));
+                            mfx1.show();
                             return;
                         }
                         if(null == comboSelectedItem){
-                            //todo: 如果没有选择报文的类型提示
+                            MonologFX mfx2 = new MonologFX(MonologFX.Type.INFO);
+                            mfx2.setTitleText(vdLang.getString("app.datagramManafun.addErrWinTitle.2"));
+                            mfx2.setMessage(vdLang.getString("app.datagramManafun.addErrMsg.2"));
+                            mfx2.show();
                             return;
                         }
                         Integer key = comboSelectedItem.getKey();
@@ -204,10 +210,10 @@ public class DatagramManaController extends WindowController implements Initiali
                             isSuccess = datagram.createFile(true); //创建文件
                         }
 
-                        if (!isSuccess) {
+                        if (!isSuccess) {//如果新增报文失败，提示用户
                             MonologFX monologFX1 = new MonologFX(MonologFX.Type.INFO);
-                            monologFX.setTitleText(vdLang.getString("app.datagramManafun.addErrWinTitle"));
-                            monologFX.setMessage(vdLang.getString("app.datagramManafun.addErrMsg"));
+                            monologFX.setTitleText(vdLang.getString("app.datagramManafun.addErrWinTitle.3"));
+                            monologFX.setMessage(vdLang.getString("app.datagramManafun.addErrMsg.3"));
                             monologFX.show();
                             return;
                         }
@@ -319,22 +325,28 @@ public class DatagramManaController extends WindowController implements Initiali
 
             //发送校验
             boolean valid = true;
+            StringBuilder infoMsg = new StringBuilder();
+            int index = 1;
             if(null == datagram || "".equals(datagram.trim())){
-                //todo:如果没有填写任何报文,提示用户填写
-
+                infoMsg.append(index + vdLang.getString("app.datagramManafun.sendErrMsg.1"));
+                index ++;
                 valid &= false;
             }
             if(null == selectedItem){
-                //todo:如果没有选择地址项，提示用户填写
-
+                infoMsg.append(index + vdLang.getString("app.datagramManafun.sendErrMsg.2"));
+                index ++;
                 valid &= false;
             }
             if(null == sendTimesStr || "".equals(sendTimesStr.trim()) || !sendTimesStr.matches("\\d*")){
-                //todo:如果没有选择地址项，提示用户填写
-
+                infoMsg.append(index + vdLang.getString("app.datagramManafun.sendErrMsg.3"));
+                index ++;
                 valid &= false;
             }
             if(!valid){ //未校验通过不做以下处理
+                MonologFX mfx1 = new MonologFX(MonologFX.Type.ERROR);
+                mfx1.setTitleText(vdLang.getString("app.datagramManafun.sendErrWinTitle.1"));
+                mfx1.setMessage(infoMsg.toString());
+                mfx1.show();
                 return;
             }
 

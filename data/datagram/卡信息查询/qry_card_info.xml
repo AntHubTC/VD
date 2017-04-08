@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="GBK"?>
+<root>
+    <TransCode>200003</TransCode>
+    <ChannelNo>GUIM</ChannelNo>
+    <ChannelSN>GUIM2017040600000000000033111169</ChannelSN>
+    <Version>1</Version>
+    <TellerID>100123</TellerID>
+    <Branch>800898008</Branch>
+    <TermID>EC-A8-6B-C1-A1-50</TermID>
+    <ReqDT>20170406</ReqDT>
+    <ReqTM>112027</ReqTM>
+    <ICFlag>1</ICFlag>
+    <OriChannelSN/>
+    <MAC/>
+    <KeyID/>
+    <CardNo>6235102289800000038</CardNo>
+    <CardSN/>
+    <ChkPwdFlg>0</ChkPwdFlg>
+    <PayPwd/>
+</root>
