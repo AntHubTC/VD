@@ -122,4 +122,23 @@ public class Datagram {
         }
         return isCreateSuccess;
     }
+
+    /**
+     * 删除报文
+     * @return 删除是否成功
+     */
+    public boolean delete() {
+        File file = new File(path);
+        boolean runResult = true;
+        if(file.exists()){
+            if(file.isFile()){//如果是文件，那么还需要删除它的template
+                String templatePath = getTemplatePath();
+                File templateFile = new File(templatePath);
+                runResult &= templateFile.delete();
+            }
+            //删除报文或报文类别文件
+            runResult &= file.delete();
+            return runResult;
+        } else return false;
+    }
 }

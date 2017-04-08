@@ -131,29 +131,14 @@ public class DatagramMana {
         }
         //删除当前节点
         Datagram datagram = datagramTreeItem.getValue();
-        delete(datagram);
-    }
-
-    /**
-     * 删除报文
-     * @param datagram
-     */
-    private void delete(Datagram datagram) {
-        String fileName = datagram.getFileName();
-        String path = datagram.getPath();
-        if("datagram".equals(fileName)){ //不删除根目录
+        if("datagram".equals(datagram.getFileName())){ //不删除根目录
             return;
         }
-        File file = new File(path);
-        if(file.exists()){
-            boolean runResult = file.delete();
-            if(runResult){
-                LOG.info("删除报文文件:" + path + "结果：成功");
-            } else {
-                LOG.info("删除报文文件:" + path + "结果：失败");
-            }
+        boolean delResult = datagram.delete();//删除报文
+        if(delResult){
+            LOG.info("删除报文文件:" + datagram.getPath() + "结果：成功");
         } else {
-            LOG.info("删除报文文件:" + path + "结果：文件未找到，删除失败");
+            LOG.info("删除报文文件:" + datagram.getPath() + "结果：失败");
         }
     }
 }
