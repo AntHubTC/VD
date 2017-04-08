@@ -205,7 +205,10 @@ public class DatagramManaController extends WindowController implements Initiali
                         }
 
                         if (!isSuccess) {
-                            //todo: 未成功提示
+                            MonologFX monologFX1 = new MonologFX(MonologFX.Type.INFO);
+                            monologFX.setTitleText(vdLang.getString("app.datagramManafun.addErrWinTitle"));
+                            monologFX.setMessage(vdLang.getString("app.datagramManafun.addErrMsg"));
+                            monologFX.show();
                             return;
                         }
 
@@ -260,7 +263,7 @@ public class DatagramManaController extends WindowController implements Initiali
             //弹出提示框，提示保存成功
             MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
             monologFX.setTitleText(vdLang.getString("app.datagramManafun.delWinTitle"));
-            monologFX.setMessage("你确定要删除" + nodeName + "节点吗？");
+            monologFX.setMessage(String.format(vdLang.getString("app.datagramManafun.delMsg"), nodeName));
             monologFX.setOkEventHandler(event1 -> {
                 //点击“确定”要进行的处理
                 //1.删除持久层
