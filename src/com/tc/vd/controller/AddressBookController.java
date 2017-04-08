@@ -341,12 +341,10 @@ public class AddressBookController extends WindowController implements Initializ
             //删除警告询问
             MonologFX monologFX = new MonologFX(MonologFX.Type.QUESTION);
             monologFX.setTitleText(vdLang.getString("app.addressBookfun.delWinTitle.2"));
-            monologFX.setMessage(String.format(vdLang.getString("app.addressBookfun.delWarnInfo.2") ,selectedItem.getName()));
+            monologFX.setMessage(String.format(vdLang.getString("app.addressBookfun.delWarnInfo.2"), selectedItem.getName()));
             monologFX.setOkEventHandler(new EventHandler<ActionEvent>() {//确定处理
                 @Override
                 public void handle(ActionEvent event) {
-                    System.out.println("啊，我被删除了！~");
-
                     //删除显示的元素
                     addressBookList.remove(selectedItem);
                     AddressBook.getInstance().persistData();//从列表中移除了，保存现在的数据
