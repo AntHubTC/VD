@@ -25,7 +25,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class VdApplication extends Application {
@@ -49,10 +51,27 @@ public class VdApplication extends Application {
      */
     @Override
     public void start(final Stage primaryStage) throws Exception{
-        //Locale locale1 = new Locale("zh", "CN");
-//        Locale locale1 = new Locale("en", "US");
-//        ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", locale1);
-        ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", Locale.getDefault());//国际化资源获取
+        ////国际化
+        String language = System.getProperty("app.language");
+        Locale local = null;
+        if(null == language){
+            local = Locale.getDefault();
+        } else {
+            Locale[] availableLocales = Locale.getAvailableLocales();
+            for (Locale tlocal : availableLocales) {
+                if (tlocal.getLanguage().equals(language)){
+                    local = tlocal;
+                    break;
+                }
+            }
+        }
+//        local = new Locale("zh", "CN");
+//        local = new Locale("en", "US");
+        if(null == local){
+            throw new Exception("没有找到该地区区域Locale");
+        }
+        ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", local);
+
         stageController.setVdLang(vdLang);
         stageController.setPrimaryStage(primaryStage);
 
@@ -123,6 +142,7 @@ public class VdApplication extends Application {
             //启动vd
             launch(args);
         } catch (Exception e){
+            LOG.error("发生错误：", e);
             e.printStackTrace();
         }
     }
