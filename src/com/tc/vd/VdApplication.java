@@ -257,7 +257,7 @@ public class VdApplication extends Application {
 
         try {
             SystemTray tray = SystemTray.getSystemTray();
-            String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
+            String icon = System.getProperty("res.css.skin.path") + File.separator + "images/VD16X16.png";
             File iconFile = new File(icon);
             String appTitle = System.getProperty("app.title");
             trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(iconFile.getAbsolutePath()), appTitle, popupMenu);

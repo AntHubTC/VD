@@ -82,7 +82,7 @@ public class StageController {
      * @throws FileNotFoundException
      */
     private void loadIcon(Stage stage) throws FileNotFoundException {
-        String icon = System.getProperty("res.css.skin.path") + File.separator + "images/helpDoc.png";
+        String icon = System.getProperty("res.css.skin.path") + File.separator + "images/VD.png";
         File iconFile = new File(icon);
         Image iconImg = new Image(new FileInputStream(iconFile));
         stage.getIcons().add(iconImg);//这里可以设置标题图标也可以设置任务栏图标

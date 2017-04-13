@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
@@ -9,10 +11,10 @@
 
 <VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.controller.MainController">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="48.0" prefWidth="998.0" styleClass="vd-title" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="60.0" prefWidth="998.0" styleClass="vd-title" VBox.vgrow="ALWAYS">
             <children>
-                <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="162.0" text="%app.title" />
-              <MenuBar layoutX="204.0" prefHeight="30.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0">
+                <Label fx:id="appTitle" layoutX="439.0" layoutY="8.0" prefHeight="16.0" prefWidth="162.0" text="%app.title" textAlignment="CENTER" visible="false" />
+              <MenuBar layoutX="204.0" prefHeight="30.0" prefWidth="882.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="0.0">
                   <menus>
                       <Menu text="%app.menu.file" visible="false">
                           <items>
@@ -66,6 +68,16 @@
                         </ImageView>
                     </children>
                 </AnchorPane>
+            <ImageView fitHeight="60.0" fitWidth="60.0" layoutX="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0">
+               <image>
+                  <Image url="@skin/CASPIAN/images/VD.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="60.0" fitWidth="150.0" layoutX="80.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@skin/CASPIAN/images/VDColorSplit.png" />
+               </image>
+            </ImageView>
             </children>
         </AnchorPane>
         <AnchorPane fx:id="mainContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="800.0">
