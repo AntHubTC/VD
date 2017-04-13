@@ -1,25 +1,34 @@
 package com.tc.vd.controller;
 
+import com.tc.vd.ui.control.monologfx.MonologFX;
 import com.tc.vd.utils.FileResUtil;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.log4j.Logger;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.URI;
 import java.net.URL;
 
 /**
  * 主窗口控制器
  */
 public class MainController extends WindowController{
+    private static Logger LOG = Logger.getLogger(MainController.class);
+
     @FXML
     public VBox appWindowBox;//应用程序窗口
     @FXML
@@ -79,6 +88,42 @@ public class MainController extends WindowController{
     }
 
     /**
+     * 关于
+     * @param event
+     */
+    @FXML
+    public void handleAboutMenuItemClick(ActionEvent event){
+        try {
+            UIResourceEnum datagramAdd = UIResourceEnum.VD_ABOUT;
+            URL datagramAddUrl = new File(datagramAdd.getUiResource()).toURI().toURL();
+            FXMLLoader loader = new FXMLLoader(datagramAddUrl, vdLang);
+            Node rootNode = (Node)loader.load();
+            Hyperlink projectAddress = (Hyperlink)rootNode.lookup("#projectAddress");
+            if(null != projectAddress){
+                projectAddress.setOnAction(event1 -> {
+                    try {
+                        String paddress = projectAddress.getText();
+                        URI uri = new URI(paddress);
+                        Desktop.getDesktop().browse(uri);
+                    } catch (Exception e) {
+                        LOG.error("点击发送错误：", e);
+                        e.printStackTrace();
+                    }
+                });
+            }
+            MonologFX monologFX = new MonologFX(MonologFX.Type.TEMP);
+            String addDatagramWinTitle = vdLang.getString("app.datagramManafun.vdAbout");
+            monologFX.setTitleText(addDatagramWinTitle);
+            monologFX.setCenterContent(rootNode);
+
+            monologFX.show();
+        } catch (Exception e){
+            LOG.error("发送错误：", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * 处理地址簿单击事件
      * @param event
      */
@@ -89,7 +134,6 @@ public class MainController extends WindowController{
         stageController.setStage(UIResourceEnum.ADDRESS_BOOK_STAGE);
         super.handleOpenWinAction(event);
     }
-
 
     /**
      * 处理地址簿单击事件

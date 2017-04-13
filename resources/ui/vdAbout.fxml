@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="110.0" prefWidth="250.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="22.0" layoutY="10.0" text="%app.datagramManafun.vdAbout.author.1" />
+      <Label layoutX="80.0" layoutY="10.0" prefHeight="15.0" prefWidth="146.0" text="%app.datagramManafun.vdAbout.author.2" />
+      <Label layoutX="27.0" layoutY="31.0" text="%app.datagramManafun.vdAbout.qqGroup.1" />
+      <Label layoutX="80.0" layoutY="31.0" prefHeight="15.0" prefWidth="146.0" text="%app.datagramManafun.vdAbout.qqGroup.2" />
+      <Label layoutX="11.0" layoutY="52.0" text="%app.datagramManafun.vdAbout.pjAddress.1" />
+      <Hyperlink fx:id="projectAddress" layoutX="73.0" layoutY="49.0" prefHeight="37.0" prefWidth="159.0" text="%app.datagramManafun.vdAbout.pjAddress.2" wrapText="true" />
+   </children>
+</Pane>
