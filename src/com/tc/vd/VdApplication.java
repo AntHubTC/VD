@@ -68,7 +68,8 @@ public class VdApplication extends Application {
 //        local = new Locale("zh", "CN");
 //        local = new Locale("en", "US");
         if(null == local){
-            throw new Exception("没有找到该地区区域Locale");
+            //如果没有找到语言地区信息使用默认的vdLang.properties文件
+            local = new Locale("");
         }
         ResourceBundle vdLang = ResourceBundle.getBundle("lang.vdLang", local);
 
