@@ -50,7 +50,7 @@ public class MonologFX {
      * <p>
      * If no type is specified in the constructor, the default is INFO.
      */
-    public enum Type { ACCEPT, ERROR, INFO, QUESTION };
+    public enum Type { ACCEPT, ERROR, INFO, QUESTION, TEMP };
     public enum ButtonAlignment { LEFT, RIGHT, CENTER };
 
     private Type type;
@@ -391,15 +391,20 @@ public class MonologFX {
             case QUESTION:
                 iconFile = "Dialog-question.jpg";
                 break;
+            case TEMP:
+                iconFile = null;
+                break;
             default:
                 iconFile = "Dialog-info.jpg";
                 break;
         }
 
-        try {
-            loadIconFromResource(iconFile);
-        } catch (Exception ex) {
-            System.err.println("Exception trying to load icon file: " + ex.getMessage());
+        if(null != iconFile){
+            try {
+                loadIconFromResource(iconFile);
+            } catch (Exception ex) {
+                System.err.println("Exception trying to load icon file: " + ex.getMessage());
+            }
         }
 
         BorderPane.setAlignment(icon, Pos.CENTER_LEFT);

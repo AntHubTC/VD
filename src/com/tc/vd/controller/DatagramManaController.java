@@ -171,7 +171,7 @@ public class DatagramManaController extends WindowController implements Initiali
             Object root = loader.load();
             DatagramAddController datagramAddController = loader.getController();
 
-            MonologFX monologFX = new MonologFX(MonologFX.Type.INFO);
+            MonologFX monologFX = new MonologFX(MonologFX.Type.TEMP);
             String addDatagramWinTitle = vdLang.getString("app.datagramManafun.addWinTitle");
             monologFX.setTitleText(addDatagramWinTitle);
             monologFX.setCenterContent((Node) root);
