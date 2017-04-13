@@ -23,6 +23,6 @@
     <Content>
         <cardType>这里填写卡种</cardType>
         <MakeType>1</MakeType>
-        <AplyNum>1</AplyNum>
+        <AplyNum>这里填写制卡数量</AplyNum>
     </Content>
 </Document>

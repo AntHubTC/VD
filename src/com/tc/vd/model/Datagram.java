@@ -1,6 +1,7 @@
 package com.tc.vd.model;
 
 import com.tc.vd.utils.FileReaderUtil;
+import com.tc.vd.utils.FileWriterUtil;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -140,5 +141,43 @@ public class Datagram {
             runResult &= file.delete();
             return runResult;
         } else return false;
+    }
+
+    /**
+     * 保存报文内容和模板内容
+     *
+     * @param datagramStr 报文内容
+     * @param datagramTepmlateStr 报文模板内容
+     */
+    public void saveContent(String datagramStr, String datagramTepmlateStr) throws IOException {
+        //保存报文内容
+        saveDatagramContent(datagramStr);
+        //保存模板内容
+        saveDatagramTemplateContent(datagramTepmlateStr);
+    }
+
+    /**
+     * 保存报文内容
+     * @param datagramStr
+     */
+    public void saveDatagramContent(String datagramStr) throws IOException {
+        File file = new File(this.path);
+        FileWriterUtil.writeFileContent(file, datagramStr, false);
+
+        this.datagramTextContent = datagramStr; //更新缓存内容
+    }
+
+    /**
+     * 保存模板内容
+     *
+     * @param datagramStr
+     */
+    public void saveDatagramTemplateContent(String datagramStr) throws IOException {
+        String templatePath = this.getTemplatePath();
+        File file = new File(templatePath);
+        FileWriterUtil.writeFileContent(file, datagramStr, false);
+
+
+        this.datagramTemplateTextContent = datagramStr; //更新缓存内容
     }
 }

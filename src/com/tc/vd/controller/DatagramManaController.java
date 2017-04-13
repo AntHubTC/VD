@@ -20,11 +20,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.StringConverter;
 import org.apache.log4j.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -36,8 +38,13 @@ import java.util.ResourceBundle;
 public class DatagramManaController extends WindowController implements Initializable {
     private static Logger LOG = Logger.getLogger(DatagramManaController.class);
 
-    private StringProperty datagramRevTextProp;
+    private StringProperty datagramRevTextProp;//报文接收双向绑定属性
+    private Datagram currentEditDatagram; //当前编辑报文
 
+    @FXML
+    private Pane leftPane;
+    @FXML
+    private Pane rightPane;
     @FXML
     private Button addDataGram;
     @FXML
@@ -75,6 +82,9 @@ public class DatagramManaController extends WindowController implements Initiali
 //                new TreeItem<String>("Item 3")
 //        );
         try {
+            //右侧面板默认不可用
+            rightPane.setVisible(false);
+
             //获取报文管理实例
             DatagramMana instance = DatagramMana.getInstance();
             //载入数据
@@ -425,9 +435,11 @@ public class DatagramManaController extends WindowController implements Initiali
             Datagram datagram = selectedItem.getValue();
             int clickCount = event.getClickCount();
             if(1 == clickCount) {//单击
-                System.out.println("");
             } else if(2 == clickCount){//双击
                 if(datagram.isDatagramText()){
+                    //当前编辑的报文
+                    currentEditDatagram = datagram;
+
                     //显示当前报文提示
                     String path = datagram.getPath();
                     String rootPath = ResConstant.rootPath;
@@ -436,12 +448,19 @@ public class DatagramManaController extends WindowController implements Initiali
                     path = path.replaceAll("/", ">");
                     path = path.replaceAll("\\\\", ">");
                     currentDatagramTitle.setText(path);
+
                     //显示报文
                     String fileDatagramText = datagram.getDatagramTextContent();
                     datagramText.setText(fileDatagramText);
+
                     //显示报文模板
                     String fileDatagramTemplateText = datagram.getDatagramTemplateTextContent();
                     datagramTemplateText.setText(fileDatagramTemplateText);
+
+                    //显示右侧面板
+                    if(!rightPane.isVisible()){
+                        rightPane.setVisible(true);
+                    }
                 }
             };
         } catch (Exception e) {
@@ -455,9 +474,36 @@ public class DatagramManaController extends WindowController implements Initiali
      * @param event
      */
     public void handleDatagramSaveClick(MouseEvent event) {
-        String datagramTextText = datagramText.getText();
+        if(null == currentEditDatagram){
+            MonologFX mfx1 = new MonologFX(MonologFX.Type.ERROR);
+            mfx1.setTitleText(vdLang.getString("app.datagramManafun.saveNoDirectory.title"));
+            mfx1.setMessage(vdLang.getString("app.datagramManafun.saveNoDirectory.msg"));
+            mfx1.show();
+            return;
+        }
+        String datagramStr = datagramText.getText(); //报文内容
+        String datagramTepmlateStr= datagramTemplateText.getText(); //模板内容
+        boolean isSaveSucc = true;
+        try {
+            currentEditDatagram.saveContent(datagramStr, datagramTepmlateStr);
+        } catch (IOException e) {
+            LOG.error("保存模板失败：", e);
+            e.printStackTrace();
+            //保存失败
+            isSaveSucc = false;
+        }
 
-        System.out.println("报文保存");
+        if (isSaveSucc) {
+            MonologFX mfx1 = new MonologFX(MonologFX.Type.INFO);
+            mfx1.setTitleText(vdLang.getString("app.datagramManafun.saveSucc.title"));
+            mfx1.setMessage(vdLang.getString("app.datagramManafun.saveSucc.msg"));
+            mfx1.show();
+        } else {
+            MonologFX mfx1 = new MonologFX(MonologFX.Type.ERROR);
+            mfx1.setTitleText(vdLang.getString("app.datagramManafun.saveError.title"));
+            mfx1.setMessage(vdLang.getString("app.datagramManafun.saveError.msg"));
+            mfx1.show();
+        }
     }
 
     /**
