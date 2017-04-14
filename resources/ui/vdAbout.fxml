@@ -9,9 +9,9 @@
    <children>
       <Label layoutX="22.0" layoutY="10.0" text="%app.datagramManafun.vdAbout.author.1" />
       <Label layoutX="80.0" layoutY="10.0" prefHeight="15.0" prefWidth="146.0" text="%app.datagramManafun.vdAbout.author.2" />
-      <Label layoutX="27.0" layoutY="31.0" text="%app.datagramManafun.vdAbout.qqGroup.1" />
+      <Label layoutX="30.0" layoutY="31.0" text="%app.datagramManafun.vdAbout.qqGroup.1" />
       <Label layoutX="80.0" layoutY="31.0" prefHeight="15.0" prefWidth="146.0" text="%app.datagramManafun.vdAbout.qqGroup.2" />
-      <Label layoutX="11.0" layoutY="52.0" text="%app.datagramManafun.vdAbout.pjAddress.1" />
+      <Label layoutX="20.0" layoutY="52.0" text="%app.datagramManafun.vdAbout.pjAddress.1" />
       <Hyperlink fx:id="projectAddress" layoutX="73.0" layoutY="49.0" prefHeight="37.0" prefWidth="159.0" text="%app.datagramManafun.vdAbout.pjAddress.2" wrapText="true" />
    </children>
 </Pane>

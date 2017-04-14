@@ -11,7 +11,7 @@
 
 <VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.controller.MainController">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="70.0" prefWidth="998.0" styleClass="vd-bg" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="70.0" prefWidth="1000.0" styleClass="vd-bg" VBox.vgrow="ALWAYS">
             <children>
             <ImageView fitHeight="90.0" fitWidth="107.0" layoutX="68.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.6666641235351562" AnchorPane.topAnchor="0.0">
                <image>
@@ -86,9 +86,9 @@
             <Insets />
          </opaqueInsets>
         </AnchorPane>
-        <AnchorPane fx:id="mainContainer" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="520.0" prefWidth="800.0" styleClass="vd-bg">
+        <AnchorPane fx:id="mainContainer" maxHeight="1.7976931348623157E308" styleClass="vd-bg" VBox.vgrow="ALWAYS">
          <children>
-            <TilePane prefHeight="525.0" prefWidth="998.0">
+            <TilePane prefHeight="525.0" prefWidth="983.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <VBox style="-fx-alignment: center;">
                      <children>
@@ -116,7 +116,7 @@
                            </VBox.margin></Label>
                      </children>
                      <TilePane.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets top="15.0" />
                      </TilePane.margin>
                   </VBox>
                   <VBox layoutX="20.0" layoutY="20.0" style="-fx-alignment: center;">
@@ -142,7 +142,7 @@
                            </VBox.margin></Label>
                      </children>
                      <TilePane.margin>
-                        <Insets left="10.0" top="10.0" />
+                        <Insets left="15.0" top="15.0" />
                      </TilePane.margin>
                   </VBox>
                </children>
