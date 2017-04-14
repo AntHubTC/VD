@@ -8,7 +8,7 @@
 
 <VBox fx:id="appWindowBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" styleClass="vd-window" stylesheets="@skin/modena/vd.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.tc.vd.controller.AddressBookController">
     <children>
-        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="30.0" prefWidth="998.0" styleClass="vd-title">
+        <AnchorPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onMouseDragged="#handleAppTitleDragAction" onMousePressed="#handleAppTitleMousePressed" prefHeight="30.0" prefWidth="998.0" styleClass="vd-bg">
             <children>
                 <Label fx:id="appTitle" layoutX="20.0" layoutY="8.0" prefHeight="16.0" prefWidth="604.0" text="%app.addressBookfun" />
                 <AnchorPane layoutX="900.0" layoutY="5.0" AnchorPane.rightAnchor="5.0">
