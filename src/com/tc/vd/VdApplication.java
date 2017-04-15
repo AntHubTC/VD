@@ -122,8 +122,7 @@ public class VdApplication extends Application {
             //设置皮肤
             String skin = System.getProperty("ui.skin");
             if(null != skin && !"".equals(skin)){
-                //System.setProperty("javafx.userAgentStylesheetUrl", skin);
-                setUserAgentStylesheet(skin);
+                System.setProperty("javafx.userAgentStylesheetUrl", skin);
             }
             //更改system输出
             String runMode = System.getProperty("app.runmode");
@@ -263,29 +262,29 @@ public class VdApplication extends Application {
             trayIcon = new TrayIcon(Toolkit.getDefaultToolkit().getImage(iconFile.getAbsolutePath()), appTitle, popupMenu);
             trayIcon.setToolTip(appTitle);
             tray.add(trayIcon);
-            trayIcon.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    super.mouseClicked(e);
-                    if (!stage.isShowing()) {
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                Platform.setImplicitExit(false);
-                                stage.show();
-                            }
-                        });
-                    }else{
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run() {
-                                stage.hide();
-                                //Platform.exit();
-                            }
-                        });
-                    }
-                }
-            });
+//            trayIcon.addMouseListener(new MouseAdapter() {
+//                @Override
+//                public void mouseClicked(java.awt.event.MouseEvent e) {
+//                    super.mouseClicked(e);
+//                    if (!stage.isShowing()) {
+//                        Platform.runLater(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Platform.setImplicitExit(false);
+//                                stage.show();
+//                            }
+//                        });
+//                    }else{
+//                        Platform.runLater(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                stage.hide();
+//                                //Platform.exit();
+//                            }
+//                        });
+//                    }
+//                }
+//            });
         } catch (Exception e) {
             e.printStackTrace();
         }
