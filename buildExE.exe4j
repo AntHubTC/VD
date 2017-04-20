@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <exe4j version="5.0.1" transformSequenceNumber="2">
-  <directoryPresets config="F:/soft" />
+  <directoryPresets config="F:/soft/jre8" />
   <application name="VD" distributionSourceDir="C:/Users/tangcheng/Desktop">
     <languages>
       <principalLanguage id="en" customLocalizationFile="" />
     </languages>
   </application>
-  <executable name="VD" type="2" iconSet="true" iconFile="F:/csii/doc/文档/唐成/VD/resources/ui/VD512X512.ico" executableDir="" redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false" amd64="true">
+  <executable name="VD" type="2" iconSet="true" iconFile="F:/csii/doc/文档/唐成/VD/resources/ui/VD512X512.ico" executableDir="." redirectStderr="true" stderrFile="error.log" stderrMode="overwrite" redirectStdout="false" stdoutFile="output.log" stdoutMode="overwrite" failOnStderrOutput="true" executableMode="1" changeWorkingDirectory="true" workingDirectory="." singleInstance="false" serviceStartType="2" serviceDependencies="" serviceDescription="" jreLocation="" executionLevel="asInvoker" checkConsoleParameter="false" globalSingleInstance="false" singleInstanceActivate="true" dpiAware="false" amd64="true">
     <messageSet />
     <versionInfo include="false" fileVersion="" fileDescription="" legalCopyright="" internalName="" productName="" companyName="" productVersion="" />
   </executable>
@@ -18,13 +18,15 @@
   </splashScreen>
   <java mainClass="com.tc.vd.VdApplication" vmParameters="-Dfile.encoding=GBK" arguments="" allowVMPassthroughParameters="true" preferredVM="client" bundleRuntime="true" minVersion="1.8" maxVersion="" allowBetaVM="false" jdkOnly="false">
     <searchSequence>
-      <registry />
-      <directory location="F:/soft/jre8" />
+      <directory location="./jre8" />
+      <envVar name="JAVA_HOME" />
     </searchSequence>
     <classPath>
       <archive location="F:/csii/doc/文档/唐成/VD/out/artifacts/VD_jar/VD.jar" failOnError="false" />
     </classPath>
-    <nativeLibraryDirectories />
+    <nativeLibraryDirectories>
+      <directory name="F:/soft/jre8" />
+    </nativeLibraryDirectories>
   </java>
   <includedFiles />
   <unextractableFiles />
